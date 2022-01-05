@@ -1,0 +1,7 @@
+{
+	"isDev": false,
+	"accessToken": "abc",
+	"ports": {
+		"discussion": 11100
+	}
+}

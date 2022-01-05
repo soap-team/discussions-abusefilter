@@ -1,0 +1,26 @@
+{
+  "info": {
+    "1": {
+      "id": "1", 
+      "name": "Text",
+      "wikis": ["noreply.fandom.com"],
+      "editedBy": "Text"
+    }
+  },
+  "filters": {
+    "1": {
+      "triggers": [
+        "noreply.fandom.com:discussion::created",
+        "noreply.fandom.com:discussion::modified"
+      ],
+      "filter": "return true;",
+      "actions": [
+        {
+          "action": "log",
+          "webhook": "link",
+          "content": "text"
+        }
+      ]
+    }
+  }
+}
