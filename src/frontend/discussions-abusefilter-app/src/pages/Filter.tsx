@@ -10,6 +10,7 @@ import {
     Tooltip,
     Paper,
     Box,
+    Stack,
   } from '@mui/material';
   import AddIcon from '@mui/icons-material/Add';
   import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -42,6 +43,7 @@ export default function Filter() {
       url: "",
     }],
   }]);
+  const [focus, setFocus] = React.useState(false);
   const [error, setError] = React.useState(false);
 
   const handleNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -54,6 +56,14 @@ export default function Filter() {
 
   const handleFilterChange = (editor: any, data: any, value: React.SetStateAction<string>) => {
     setFilter(value);
+  };
+
+  const handleFocusChange = () => {
+    setFocus(true);
+  };
+
+  const handleBlurChange = () => {
+    setFocus(false);
   };
 
   const handleNewTrigger = () => {
@@ -91,35 +101,50 @@ export default function Filter() {
 
   return (
     <>
-      <Typography component="h1" variant="h5">Filter #{filterId}</Typography>
+      <Typography component="h1" variant="h5">Filter #{filterId}: {'name'}</Typography>
+      <Typography variant="caption">{"Last Modified: Noreplyz, 7 January, 00:30 UTC"}</Typography>
       <Box component="form" autoComplete="off" onSubmit={handleSave} mt={2}>
         <Box mb={2}>
-          <Typography component="label" htmlFor="filter-name" variant="subtitle1">Name</Typography>
+          <Typography component="label" htmlFor="filter-name" variant="subtitle2">Name</Typography>
           <TextField
-
             id="filter-name"
             variant="outlined"
             size="small"
+            color="secondary"
             defaultValue={name}
             onBlur={handleNameChange}
             fullWidth
           />
         </Box>
         <Box mb={2}>
-          <Typography component="label" htmlFor="filter-description" variant="subtitle1">Description</Typography>
+          <Typography component="label" htmlFor="filter-description" variant="subtitle2">Description</Typography>
           <TextField
             // style={theme === 'light' ? { backgroundColor: '#fff' } : { backgroundColor: '#424242' }}
             id="filter-description"
-            multiline rows={5}
+            multiline
+            minRows={1}
+            maxRows={5}
             variant="outlined"
+            size="small"
+            color="secondary"
             defaultValue={description}
             onBlur={handleDescriptionChange}
             fullWidth
           />
         </Box>
         <Box mb={2}>
-          <Typography component="label" variant="subtitle1">Filter</Typography>
-          <Paper variant="outlined">
+          <Typography component="label" variant="subtitle2">Filter</Typography>
+          <Paper variant="outlined" sx={[
+            !focus && {
+              '&:hover': {
+              borderColor: '#000' ,
+              },
+              borderColor: '#c4c4c4',
+            },
+            focus && {
+              borderColor: '#FEC600',
+            },
+          ]}>
             <CodeMirror
               // className={theme === 'light' ? undefined : "codemirror-dark"}
               options={{
@@ -130,27 +155,29 @@ export default function Filter() {
                 screenReaderLabel: "filter",
               }}
               onChange={handleFilterChange}
+              onFocus={handleFocusChange}
+              onBlur={handleBlurChange}
             />
           </Paper>
         </Box>
         <Box>
-          <Typography component="h2" variant="h5" width="auto">
-            Triggers and Actions
-            <Tooltip title="info">
-              <InfoOutlinedIcon fontSize="small" />
-            </Tooltip>
-          </Typography>
-          {/* {triggers.map((o, i) => <Trigger key={i} id={i} triggers={triggers} setTriggers={setTriggers} error={error} setError={setError} />)} */}
+          <Typography component="h2" variant="subtitle2">Triggers</Typography>
+          <Typography variant="body2">The filter will only trigger on the following events:</Typography>
+          <Button variant="outlined" color="warning" onClick={handleNewTrigger}>
+            <AddIcon fontSize="small" />
+            Add a trigger</Button>
         </Box>
         <Box>
-          <Button variant="contained" type="button" onClick={handleNewTrigger}><AddIcon fontSize="small" /> Add new trigger</Button>
+          <Typography component="h2" variant="subtitle2">Actions</Typography>
+          
+          <Button variant="outlined" color="warning" onClick={handleNewTrigger}>
+            <AddIcon fontSize="small" />
+            Add an action</Button>
         </Box>
-        <Box display="flex" justifyContent="flex-end" mb={2}>
-          <Button variant="contained" type="button" component={Link} to="/">Cancel</Button>
-          <Box ml={1}>
-            <Button variant="contained" color="primary" type="submit">Save</Button>
-          </Box>
-        </Box>
+        <Stack direction="row" spacing={1} sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button variant="contained" component={Link} color="secondary" to="/" disableElevation>Cancel</Button>
+            <Button variant="contained" color="secondary" type="submit" disableElevation>Save</Button>
+        </Stack>
       </Box>
     </>
   );

@@ -4,31 +4,93 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-//import { ThemeProvider } from '@mui/material/styles';
 import {
   Container,
   Box,
+  Button,
 } from '@mui/material';
+import { ThemeProvider,
+  createTheme,
+} from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import FilterList from './pages/FilterList';
 import Filter from './pages/Filter';
 import NavBar from './components/NavBar';
-import CssBaseline from '@mui/material/CssBaseline';
+import Landing from './components/Landing';
 import './App.css';
 
+const lightTheme = createTheme({
+  typography: {
+    fontFamily: [
+      'Rubik',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#FBEEDB',
+    },
+    secondary: {
+      main: '#FEC600',
+    }
+  },
+});
+
+export const darkTheme = createTheme({
+  typography: {
+    fontFamily: [
+      'Rubik',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#FBEEDB',
+    },
+    secondary: {
+      main: '#FEC600',
+    }
+  },
+});
+// FEC600 F57C00
+
 export default function App() {
-  //const [theme, setTheme] = React.useState(localStorage.getItem('theme'));
+  const [theme, setTheme] = React.useState(localStorage.getItem('theme'));
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
   return (
-    <CssBaseline>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <Router>
         <NavBar />
-        <Box component={Container} mt={5}>
+        <Box component={Container} sx={{ mt: 5 }}>
+        <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(true)}>true</Button>
+        <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(false)}>false</Button>
           <Routes>
-            <Route path="/" element={<FilterList />} />
-            <Route path="/:filterId" element={<Filter />} />
+            <Route path="/" element={isLoggedIn ? <FilterList /> : <Landing />} />
+            <Route path="/:filterId" element={isLoggedIn ? <Filter /> : <Landing />} />
           </Routes>
         </Box>
       </Router>
-    </CssBaseline>
+    </ThemeProvider>
   );
 }
