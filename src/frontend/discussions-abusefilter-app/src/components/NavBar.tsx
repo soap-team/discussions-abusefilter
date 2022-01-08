@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Link,
 } from 'react-router-dom';
-import { 
+import {
   Typography,
   Button,
   AppBar,
@@ -14,7 +14,7 @@ import {
 import logo from '../assets/fandom-heart.svg';
 
 export default function NavBar() {
-  return (  
+  return (
     <AppBar position="static">
       <Toolbar>
         <Box display="flex" alignItems="center" sx={{ flexGrow: 1 }}>

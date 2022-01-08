@@ -9,10 +9,10 @@ import {
   Box,
   Button,
 } from '@mui/material';
-import { ThemeProvider,
+import {
+  ThemeProvider,
   createTheme,
 } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import FilterList from './pages/FilterList';
 import Filter from './pages/Filter';
 import NavBar from './components/NavBar';
@@ -42,7 +42,7 @@ const lightTheme = createTheme({
     },
     secondary: {
       main: '#FEC600',
-    }
+    },
   },
 });
 
@@ -69,13 +69,13 @@ export const darkTheme = createTheme({
     },
     secondary: {
       main: '#FEC600',
-    }
+    },
   },
 });
 // FEC600 F57C00
 
 export default function App() {
-  const [theme, setTheme] = React.useState(localStorage.getItem('theme'));
+  const [theme] = React.useState(localStorage.getItem('theme'));
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
   return (
@@ -83,8 +83,8 @@ export default function App() {
       <Router>
         <NavBar />
         <Box component={Container} sx={{ mt: 5 }}>
-        <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(true)}>true</Button>
-        <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(false)}>false</Button>
+          <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(true)}>true</Button>
+          <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(false)}>false</Button>
           <Routes>
             <Route path="/" element={isLoggedIn ? <FilterList /> : <Landing />} />
             <Route path="/:filterId" element={isLoggedIn ? <Filter /> : <Landing />} />
