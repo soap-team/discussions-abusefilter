@@ -67,7 +67,6 @@ export default function Trigger({ index }: { index: number }) {
   const newTriggers = [...triggers];
   React.useEffect(() => {
     newTriggers[index] = trigger;
-    console.log(trigger);
     modifyTriggers(newTriggers);
   }, [action, platform, type, wiki]);
 
@@ -117,7 +116,7 @@ export default function Trigger({ index }: { index: number }) {
         </Select>
       </FormControl>
       <Typography variant="body2">on the wiki</Typography>
-      <TextField size="small" color="secondary" value={wiki} onChange={handleWikiChange}/>
+      <TextField size="small" color="secondary" defaultValue={wiki} onBlur={handleWikiChange}/>
       <IconButton size="small" aria-label="delete">
         <ClearIcon />
       </IconButton>
