@@ -8,6 +8,7 @@ import {
   Container,
   Box,
   Button,
+  CssBaseline,
 } from '@mui/material';
 import {
   ThemeProvider,
@@ -17,6 +18,8 @@ import FilterList from './pages/FilterList';
 import Filter from './pages/Filter';
 import NavBar from './components/NavBar';
 import Landing from './components/Landing';
+import { FormProvider } from './contexts/FormContext';
+
 import './App.css';
 
 const lightTheme = createTheme({
@@ -80,6 +83,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <CssBaseline />
       <Router>
         <NavBar />
         <Box component={Container} sx={{ mt: 5 }}>
@@ -87,7 +91,7 @@ export default function App() {
           <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(false)}>false</Button>
           <Routes>
             <Route path="/" element={isLoggedIn ? <FilterList /> : <Landing />} />
-            <Route path="/:filterId" element={isLoggedIn ? <Filter /> : <Landing />} />
+            <Route path="/:filterId" element={isLoggedIn ? <FormProvider><Filter /></FormProvider> : <Landing />} />
           </Routes>
         </Box>
       </Router>

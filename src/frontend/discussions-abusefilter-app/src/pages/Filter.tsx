@@ -13,31 +13,17 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import Trigger from '../components/Trigger';
 import FilterEditor from '../components/FilterEditor';
+import FormContext from '../contexts/FormContext';
 
 export default function Filter() {
   const { filterId } = useParams();
 
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
+  const { filter } = React.useContext(FormContext);
   const [triggers, setTriggers] = React.useState(['']);
-  // const [triggers, setTriggers] = React.useState([{
-  //   wikis: [],
-  //   triggers: {
-  //     discThread: false,
-  //     discReply: false,
-  //     artCommThread: false,
-  //     artCommReply: false,
-  //     messWallThread: false,
-  //     messWallReply: false,
-  //     repPost: false,
-  //   },
-  //   actions: [{
-  //     type: 1,
-  //     text: "",
-  //     url: "",
-  //   }],
-  // }]);
-  const [error] = React.useState(false);
+
+  const [errors] = React.useState(0);
 
   const handleNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setName(event.target.value);
@@ -53,33 +39,11 @@ export default function Filter() {
     console.log(newTriggers);
   };
 
-  // const handleNewTrigger = () => {
-  //   const newTriggers = [...triggers, {
-  //     wikis: [],
-  //     triggers: {
-  //       discThread: false,
-  //       discReply: false,
-  //       artCommThread: false,
-  //       artCommReply: false,
-  //       messWallThread: false,
-  //       messWallReply: false,
-  //       repPost: false,
-  //     },
-  //     actions: [{
-  //       type: 1,
-  //       text: "",
-  //       url: "",
-  //     }],
-  //   }];
-  //   setTriggers(newTriggers);
-  //   console.log(newTriggers);
-  // }
-
   const handleSave = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-    console.log(name, description, triggers);
-    console.log(error);
-    if (!error) {
+    console.log(name, description, filter, triggers);
+    console.log(errors);
+    if (errors === 0) {
       console.log('firebase updated');
     } else {
       console.log('there are errors');

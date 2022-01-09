@@ -38,7 +38,7 @@ export default function Filterlist() {
       </Stack>
       <TableContainer component={Paper} variant="outlined">
         <Table size="small" aria-label="Filter list">
-          <TableHead sx={{ background: '#FBEEDB' }}>
+          <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
               <TableCell>Filter</TableCell>
