@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Paper,
 } from '@mui/material';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/zenburn.css';
@@ -12,17 +12,20 @@ import FormContext from '../contexts/FormContext';
 export default function FilterCodeEditor() {
   const [focus, setFocus] = React.useState(false);
   const { filter, modifyFilter } = React.useContext(FormContext);
+  const [code, setCode] = React.useState(filter);
 
-  const handleFilterChange = (editor: unknown, data: unknown, value: string) => {
-    modifyFilter(value);
+  const handleFilterChange = (editor: unknown, event: unknown, value: string) => {
+    setCode(value);
+    console.log(value);
   };
 
   const handleFocusChange = () => {
     setFocus(true);
   };
 
-  const handleBlurChange = () => {
+  const handleBlurChange = (editor: {valueOf(): {getValue(): string}}) => {
     setFocus(false);
+    modifyFilter(editor.valueOf().getValue());
   };
 
   return (
@@ -40,7 +43,7 @@ export default function FilterCodeEditor() {
       ]}>
         <CodeMirror
         // className={theme === 'light' ? undefined : "codemirror-dark"}
-          value={filter}
+          value={code}
           options={{
             mode: 'xml',
             lineNumbers: true,
@@ -48,7 +51,7 @@ export default function FilterCodeEditor() {
             styleActiveLine: true,
             screenReaderLabel: 'filter',
           }}
-          onChange={handleFilterChange}
+          onBeforeChange={handleFilterChange}
           onFocus={handleFocusChange}
           onBlur={handleBlurChange}
         />
