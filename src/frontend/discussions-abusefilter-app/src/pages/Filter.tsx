@@ -22,7 +22,6 @@ export default function Filter() {
   const [description, setDescription] = React.useState('');
   const { filter } = React.useContext(FormContext);
   const [triggers, setTriggers] = React.useState(['']);
-
   const [errors] = React.useState(0);
 
   const handleNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {

@@ -42,7 +42,7 @@ export default function FilterCodeEditor() {
         // className={theme === 'light' ? undefined : "codemirror-dark"}
           value={filter}
           options={{
-            mode: 'xml',
+            mode: 'javascript',
             lineNumbers: true,
             // theme: theme === 'light' ? 'default' : "zenburn",
             styleActiveLine: true,

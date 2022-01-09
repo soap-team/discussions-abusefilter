@@ -23,8 +23,7 @@ export const FormProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <FormContext.Provider value={{ filter, modifyFilter }}
-    >
+    <FormContext.Provider value={{ filter, modifyFilter }}>
       {children}
     </FormContext.Provider>
   );
