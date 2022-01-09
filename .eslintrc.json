@@ -19,7 +19,7 @@
     ],
     "rules": {
         "autofix/no-debugger": "error",
-        "indent": ["error", 2],
+        "indent": ["error", 2, { "SwitchCase": 1 }],
         "no-console": "warn",
         "no-multi-spaces": ["error"],
         "no-invalid-this": "error",
@@ -56,7 +56,8 @@
             { "blankLine": "any", "prev": "*", "next": "try" },
             { "blankLine": "any", "prev": "try", "next": "*" },
             { "blankLine": "any", "prev": "*", "next": "switch" },
-            { "blankLine": "any", "prev": "switch", "next": "*" }
+            { "blankLine": "any", "prev": "switch", "next": "*" },
+            { "blankLine": "any", "prev": "case", "next": "*" }
         ],
         "quotes": ["error", "single", {
             "allowTemplateLiterals": true
@@ -71,6 +72,7 @@
         }],
         "spaced-comment": ["error", "always"],
         "switch-colon-spacing": "error",
+        "no-fallthrough": "off",
         "@typescript-eslint/comma-dangle": ["error", "always-multiline"],
         "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "@typescript-eslint/semi": ["error"],
