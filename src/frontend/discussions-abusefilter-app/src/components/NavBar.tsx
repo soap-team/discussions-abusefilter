@@ -15,7 +15,7 @@ import logo from '../assets/fandom-heart.svg';
 
 export default function NavBar() {
   return (
-    <AppBar position="static">
+    <AppBar position="static" enableColorOnDark>
       <Toolbar>
         <Box display="flex" alignItems="center" sx={{ flexGrow: 1 }}>
           <SvgIcon component={Link} to="/" sx={{ mr: 1, mb: 2 }}>

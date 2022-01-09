@@ -7,13 +7,14 @@ import 'codemirror/addon/selection/active-line';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/zenburn.css';
 import 'codemirror/mode/javascript/javascript';
+import FormContext from '../contexts/FormContext';
 
 export default function FilterCodeEditor() {
-  const [filter, setFilter] = React.useState('');
   const [focus, setFocus] = React.useState(false);
+  const { filter, modifyFilter } = React.useContext(FormContext);
 
-  const handleFilterChange = (editor: unknown, data: unknown, value: React.SetStateAction<string>) => {
-    setFilter(value);
+  const handleFilterChange = (editor: unknown, data: unknown, value: string) => {
+    modifyFilter(value);
   };
 
   const handleFocusChange = () => {
@@ -25,31 +26,33 @@ export default function FilterCodeEditor() {
   };
 
   return (
-    <Paper variant="outlined" sx={[
-      !focus && {
-        '&:hover': {
-          borderColor: '#000',
+    <>
+      <Paper variant="outlined" sx={[
+        !focus && {
+          '&:hover': {
+            borderColor: '#000',
+          },
+          borderColor: '#c4c4c4',
         },
-        borderColor: '#c4c4c4',
-      },
-      focus && {
-        borderColor: '#FEC600',
-      },
-    ]}>
-      <CodeMirror
+        focus && {
+          borderColor: '#FEC600',
+        },
+      ]}>
+        <CodeMirror
         // className={theme === 'light' ? undefined : "codemirror-dark"}
-        value={filter}
-        options={{
-          mode: 'xml',
-          lineNumbers: true,
-          // theme: theme === 'light' ? 'default' : "zenburn",
-          styleActiveLine: true,
-          screenReaderLabel: 'filter',
-        }}
-        onChange={handleFilterChange}
-        onFocus={handleFocusChange}
-        onBlur={handleBlurChange}
-      />
-    </Paper>
+          value={filter}
+          options={{
+            mode: 'xml',
+            lineNumbers: true,
+            // theme: theme === 'light' ? 'default' : "zenburn",
+            styleActiveLine: true,
+            screenReaderLabel: 'filter',
+          }}
+          onChange={handleFilterChange}
+          onFocus={handleFocusChange}
+          onBlur={handleBlurChange}
+        />
+      </Paper>
+    </>
   );
 }
