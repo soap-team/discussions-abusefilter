@@ -23,7 +23,7 @@ export default function NavBar() {
           </SvgIcon>
           <Typography component={Link} to="/" variant="h6" className="links" color="inherit" sx={{ fontWeight: 700 }}>Discussions AbuseFilter</Typography>
         </Box>
-        <Button color="inherit">Log out</Button>
+        <Button color="inherit" sx={{ fontWeight: 700 }}>Log out</Button>
       </Toolbar>
     </AppBar>
   );

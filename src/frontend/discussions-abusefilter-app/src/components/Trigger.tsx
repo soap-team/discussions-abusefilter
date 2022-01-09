@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import FormContext from '../contexts/FormContext';
 
 const actionOptions = [
   'creates',
@@ -34,22 +35,41 @@ const types = [
   'post or reply',
 ];
 
-export default function Trigger() {
+export default function Trigger({ index }: { index: number }) {
+  const { triggers, modifyTriggers } = React.useContext(FormContext);
   const [action, setAction] = React.useState(actionOptions[0]);
   const [platform, setPlatform] = React.useState(platforms[0]);
   const [type, setType] = React.useState(types[0]);
+  const [wiki, setWiki] = React.useState('');
+  const trigger = {
+    action: action,
+    platform: platform,
+    type: type,
+    wiki: wiki,
+  };
 
   const handleActionChange = (event: SelectChangeEvent) => {
-    setAction(event.target.value as string);
+    setAction(event.target.value);
   };
 
   const handlePlatformChange = (event: SelectChangeEvent) => {
-    setPlatform(event.target.value as string);
+    setPlatform(event.target.value);
   };
 
   const handleTypeChange = (event: SelectChangeEvent) => {
-    setType(event.target.value as string);
+    setType(event.target.value);
   };
+
+  const handleWikiChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setWiki(event.target.value);
+  };
+
+  const newTriggers = [...triggers];
+  React.useEffect(() => {
+    newTriggers[index] = trigger;
+    console.log(trigger);
+    modifyTriggers(newTriggers);
+  }, [action, platform, type, wiki]);
 
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: 'center', my: 2 }}>
@@ -97,7 +117,7 @@ export default function Trigger() {
         </Select>
       </FormControl>
       <Typography variant="body2">on the wiki</Typography>
-      <TextField size="small" />
+      <TextField size="small" color="secondary" value={wiki} onChange={handleWikiChange}/>
       <IconButton size="small" aria-label="delete">
         <ClearIcon />
       </IconButton>

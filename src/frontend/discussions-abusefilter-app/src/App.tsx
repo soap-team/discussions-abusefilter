@@ -37,6 +37,9 @@ const lightTheme = createTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+    subtitle2: {
+      fontWeight: 700,
+    },
   },
   palette: {
     mode: 'light',
@@ -75,7 +78,8 @@ export const darkTheme = createTheme({
     },
   },
 });
-// FEC600 F57C00
+// primary FEC600 secondary F57C00
+// fandom logo yellow #ffc502 pink #fa035a
 
 export default function App() {
   const [theme] = React.useState(localStorage.getItem('theme'));

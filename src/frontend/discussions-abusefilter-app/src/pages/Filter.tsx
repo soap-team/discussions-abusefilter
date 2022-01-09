@@ -14,14 +14,14 @@ import AddIcon from '@mui/icons-material/Add';
 import Trigger from '../components/Trigger';
 import FilterEditor from '../components/FilterEditor';
 import FormContext from '../contexts/FormContext';
+import type { Trigger as TriggerType } from '../contexts/FormContext';
 
 export default function Filter() {
   const { filterId } = useParams();
 
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const { filter } = React.useContext(FormContext);
-  const [triggers, setTriggers] = React.useState(['']);
+  const { filter, triggers, modifyTriggers } = React.useContext(FormContext);
   const [errors] = React.useState(0);
 
   const handleNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -33,9 +33,13 @@ export default function Filter() {
   };
 
   const handleNewTrigger = () => {
-    const newTriggers = [...triggers, ''];
-    setTriggers(newTriggers);
-    console.log(newTriggers);
+    const newTriggers = [...triggers, [{
+      action: 'creates',
+      platform: 'article comment',
+      type: 'post',
+      wiki: '',
+    }] as unknown as TriggerType];
+    modifyTriggers(newTriggers);
   };
 
   const handleSave = (event: { preventDefault: () => void; }) => {
@@ -89,7 +93,7 @@ export default function Filter() {
         <Box>
           <Typography component="h2" variant="subtitle2">Triggers</Typography>
           <Typography variant="body2">The filter will only trigger on the following events:</Typography>
-          {triggers.map((trigger) => <Trigger key={trigger} />)}
+          {triggers.map((trigger, i) => <Trigger key={i} index={i} />)}
           <Button variant="outlined" color="warning" onClick={handleNewTrigger}>
             <AddIcon fontSize="small" />
             Add a trigger</Button>
