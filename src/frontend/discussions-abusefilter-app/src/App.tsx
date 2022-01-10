@@ -90,7 +90,7 @@ export default function App() {
       <CssBaseline />
       <Router>
         <NavBar />
-        <Box component={Container} sx={{ mt: 5 }}>
+        <Box component={Container} sx={{ my: 5 }}>
           <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(true)}>true</Button>
           <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(false)}>false</Button>
           <Routes>

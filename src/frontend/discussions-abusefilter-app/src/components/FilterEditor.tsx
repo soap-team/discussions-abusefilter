@@ -7,6 +7,7 @@ import {
   Javascript,
   PanToolAlt,
 } from '@mui/icons-material';
+import FilterUIEditor from './FilterUIEditor';
 import FilterCodeEditor from './FilterCodeEditor';
 
 export default function FilterEditor() {
@@ -23,7 +24,7 @@ export default function FilterEditor() {
 
   return (
     <>
-      {alignment === 'gui' ? <div>gui editor</div> : <FilterCodeEditor /> }
+      {alignment === 'gui' ? <FilterUIEditor /> : <FilterCodeEditor /> }
       <ToggleButtonGroup
         value={alignment}
         exclusive

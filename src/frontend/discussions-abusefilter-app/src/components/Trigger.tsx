@@ -64,8 +64,8 @@ export default function Trigger({ index }: { index: number }) {
     setWiki(event.target.value);
   };
 
-  const newTriggers = [...triggers];
   React.useEffect(() => {
+    const newTriggers = [...triggers];
     newTriggers[index] = trigger;
     modifyTriggers(newTriggers);
   }, [action, platform, type, wiki]);
