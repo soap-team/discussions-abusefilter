@@ -8,11 +8,7 @@ export default function Login() {
   // const handleLogin = async () => {
   // const token = await ;
   // };
-  const { token, modifyToken } = React.useContext(AuthContext);
-
-  if (token !== '') {
-    navigate('/');
-  }
+  const { modifyToken } = React.useContext(AuthContext);
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');

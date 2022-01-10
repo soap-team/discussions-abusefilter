@@ -9,7 +9,7 @@ export const ProtectedRoute: React.FC = ({ children }) => {
 
   return (
     token === '' ?
-      <Navigate to="/login" replace /> : <>{children}</>
+      <Navigate replace to="/login" /> : <>{children}</>
   );
 };
 

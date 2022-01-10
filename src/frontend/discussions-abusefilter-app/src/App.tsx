@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate,
 } from 'react-router-dom';
 import {
   Container,
@@ -96,7 +97,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={token === '' ? <Landing /> : <FilterList />} />
             <Route path="/:filterId" element={<ProtectedRoute><FormProvider><Filter /></FormProvider></ProtectedRoute>} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={token === '' ? <Login /> : <Navigate replace to='/' /> } />
           </Routes>
         </Box>
       </Router>
