@@ -8,7 +8,11 @@ export default function Login() {
   // const handleLogin = async () => {
   // const token = await ;
   // };
-  const { modifyToken } = React.useContext(AuthContext);
+  const { token, modifyToken } = React.useContext(AuthContext);
+
+  if (token !== '') {
+    navigate('/');
+  }
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -55,6 +59,7 @@ export default function Login() {
             color="secondary"
             defaultValue={password}
             onBlur={handlePasswordChange}
+            type="password"
           />
         </Stack>
         <Button variant="contained" color="secondary" type="submit" disableElevation>Submit</Button>

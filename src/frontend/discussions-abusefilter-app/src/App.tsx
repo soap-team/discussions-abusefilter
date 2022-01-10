@@ -22,6 +22,7 @@ import { FormProvider } from './contexts/FormContext';
 import AuthContext from './contexts/AuthContext';
 
 import './App.css';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const lightTheme = createTheme({
   typography: {
@@ -94,7 +95,7 @@ export default function App() {
         <Box component={Container} sx={{ my: 5 }}>
           <Routes>
             <Route path="/" element={token === '' ? <Landing /> : <FilterList />} />
-            <Route path="/:filterId" element={token === '' ? <Landing /> : <FormProvider><Filter /></FormProvider>} />
+            <Route path="/:filterId" element={<ProtectedRoute><FormProvider><Filter /></FormProvider></ProtectedRoute>} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </Box>

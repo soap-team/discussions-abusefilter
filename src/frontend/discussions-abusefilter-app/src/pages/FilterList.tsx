@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Link,
+  Link as RouterLink,
 } from 'react-router-dom';
 import {
   Typography,
@@ -12,6 +12,7 @@ import {
   TableCell,
   TableBody,
   Stack,
+  Link,
 } from '@mui/material';
 
 function createData(id: string, filterName: string, lastEdit: string, wikis: string[], hits: number) {
@@ -50,11 +51,11 @@ export default function Filterlist() {
           <TableBody>
             {filterData.map((row) => (
               <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  <Typography component={Link} to={`${row.id}`} variant="body2" color="inherit">{row.id}</Typography>
-                </TableCell>
+                <TableCell component="th" scope="row">{row.id}</TableCell>
                 <TableCell>
-                  <Typography component={Link} to={`${row.id}`} variant="body2" color="inherit">{row.filterName}</Typography>
+                  <Typography variant="body2">
+                    <Link component={RouterLink} to={row.id} className="tableLink" color="inherit" underline="none">{row.filterName}</Link>
+                  </Typography>
                 </TableCell>
                 <TableCell>{row.lastEdit}</TableCell>
                 <TableCell>{row.wikis.length > 2 ? `${row.wikis[0]}, +${row.wikis.length - 1} more` : row.wikis.join(', ')}</TableCell>
