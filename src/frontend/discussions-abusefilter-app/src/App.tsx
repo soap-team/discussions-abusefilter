@@ -7,18 +7,19 @@ import {
 import {
   Container,
   Box,
-  Button,
   CssBaseline,
 } from '@mui/material';
 import {
   ThemeProvider,
   createTheme,
 } from '@mui/material/styles';
+import NavBar from './components/NavBar';
+import Landing from './pages/Landing';
+import Login from './pages/Login';
 import FilterList from './pages/FilterList';
 import Filter from './pages/Filter';
-import NavBar from './components/NavBar';
-import Landing from './components/Landing';
 import { FormProvider } from './contexts/FormContext';
+import AuthContext from './contexts/AuthContext';
 
 import './App.css';
 
@@ -83,7 +84,7 @@ export const darkTheme = createTheme({
 
 export default function App() {
   const [theme] = React.useState(localStorage.getItem('theme'));
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const { token } = React.useContext(AuthContext);
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
@@ -91,11 +92,10 @@ export default function App() {
       <Router>
         <NavBar />
         <Box component={Container} sx={{ my: 5 }}>
-          <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(true)}>true</Button>
-          <Button color="secondary" variant="contained" onClick={() => setIsLoggedIn(false)}>false</Button>
           <Routes>
-            <Route path="/" element={isLoggedIn ? <FilterList /> : <Landing />} />
-            <Route path="/:filterId" element={isLoggedIn ? <FormProvider><Filter /></FormProvider> : <Landing />} />
+            <Route path="/" element={token === '' ? <Landing /> : <FilterList />} />
+            <Route path="/:filterId" element={token === '' ? <Landing /> : <FormProvider><Filter /></FormProvider>} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </Box>
       </Router>

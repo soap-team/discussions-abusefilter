@@ -4,9 +4,16 @@ import {
   Button,
   Stack,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import banner from '../assets/banner.png';
 
 export default function Landing() {
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    navigate('/login');
+  };
+
   return (
     <Stack spacing={1} sx={{
       backgroundImage: `url(${banner})`,
@@ -19,7 +26,7 @@ export default function Landing() {
       py: 19,
     }}>
       <Typography>You must be logged in to use this tool.</Typography>
-      <Button variant="contained" color="secondary" disableElevation sx={{ fontWeight: 700, px: 5 }}>Log in</Button>
+      <Button variant="contained" color="secondary" disableElevation sx={{ fontWeight: 700, px: 5 }} onClick={handleOnClick}>Log in</Button>
     </Stack>
   );
 }

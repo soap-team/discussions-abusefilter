@@ -57,8 +57,8 @@ export default function Filter() {
     <>
       <Typography component="h1" variant="h5">Filter #{filterId}: {'name'}</Typography>
       <Typography variant="caption">{'Last Modified: Noreplyz, 7 January, 00:30 UTC'}</Typography>
-      <Box component="form" autoComplete="off" onSubmit={handleSave} mt={2}>
-        <Box mb={2}>
+      <Stack component="form" autoComplete="off" onSubmit={handleSave} spacing={1} sx={{ mt: 2 }}>
+        <Stack direction="column">
           <Typography component="label" htmlFor="filter-name" variant="subtitle2">Name</Typography>
           <TextField
             id="filter-name"
@@ -69,8 +69,8 @@ export default function Filter() {
             onBlur={handleNameChange}
             fullWidth
           />
-        </Box>
-        <Box mb={2}>
+        </Stack>
+        <Stack direction="column">
           <Typography component="label" htmlFor="filter-description" variant="subtitle2">Description</Typography>
           <TextField
             // style={theme === 'light' ? { backgroundColor: '#fff' } : { backgroundColor: '#424242' }}
@@ -85,8 +85,8 @@ export default function Filter() {
             onBlur={handleDescriptionChange}
             fullWidth
           />
-        </Box>
-        <Box mb={2}>
+        </Stack>
+        <Box>
           <Typography component="label" variant="subtitle2">Filter</Typography>
           <FilterEditor />
         </Box>
@@ -109,7 +109,7 @@ export default function Filter() {
           <Button variant="contained" component={Link} color="secondary" to="/" disableElevation>Cancel</Button>
           <Button variant="contained" color="secondary" type="submit" disableElevation>Save</Button>
         </Stack>
-      </Box>
+      </Stack>
     </>
   );
 }

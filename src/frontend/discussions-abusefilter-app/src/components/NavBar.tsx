@@ -10,10 +10,12 @@ import {
   SvgIcon,
   Box,
 } from '@mui/material';
-
+import AuthContext from '../contexts/AuthContext';
 import logo from '../assets/fandom-heart.svg';
 
 export default function NavBar() {
+  const { token, modifyToken } = React.useContext(AuthContext);
+
   return (
     <AppBar position="static" enableColorOnDark>
       <Toolbar>
@@ -23,7 +25,7 @@ export default function NavBar() {
           </SvgIcon>
           <Typography component={Link} to="/" variant="h6" className="links" color="inherit" sx={{ fontWeight: 700 }}>Discussions AbuseFilter</Typography>
         </Box>
-        <Button color="inherit" sx={{ fontWeight: 700 }}>Log out</Button>
+        {token !== '' && <Button color="inherit" sx={{ fontWeight: 700 }} onClick={() => modifyToken('')}>Log out</Button>}
       </Toolbar>
     </AppBar>
   );
