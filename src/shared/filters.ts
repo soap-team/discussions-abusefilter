@@ -1,4 +1,4 @@
-import type { RuleAction } from './actions';
+import type { Action } from './actions';
 
 export type FilterMetadata = {
   // Number that identifies the filter.
@@ -21,7 +21,7 @@ export type Filter = {
   // JSON or JavaScript string that represents the filter.
   filter: string,
   // List of actions to take if the filter returns true.
-  actions: RuleAction[],
+  actions: Action[],
 };
 
 export type TriggerAction = 'create' | 'modify' | 'create-modify' | 'delete' | 'move' | 'report';
