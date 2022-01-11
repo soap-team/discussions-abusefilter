@@ -1,22 +1,30 @@
-export type RuleAction =
+export type Action =
   | LogAction
   | DeleteAction
   | LockAction
-  | ReplyAction;
+  | ReplyAction
+  | MoveAction;
 
 type LogAction = {
-  action: 'log',
+  type: 'log',
   webhook: string,
   content: string,
 };
+
 type DeleteAction = {
-  action: 'delete',
+  type: 'delete',
 };
+
 type LockAction = {
-  action: 'lock'
+  type: 'lock'
 };
 
 type ReplyAction = {
-  action: 'reply',
+  type: 'reply',
   message: string,
+};
+
+type MoveAction = {
+  type: 'move',
+  category: string,
 };

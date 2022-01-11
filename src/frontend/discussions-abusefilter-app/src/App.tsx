@@ -98,6 +98,7 @@ export default function App() {
             <Route path="/" element={token === '' ? <Landing /> : <FilterList />} />
             <Route path="/:filterId" element={<ProtectedRoute><FormProvider><Filter /></FormProvider></ProtectedRoute>} />
             <Route path="/login" element={token === '' ? <Login /> : <Navigate replace to='/' /> } />
+            {/* <Route path="/register" element={token === '' ? <Register /> : <Navigate replace to='/' /> } /> */}
           </Routes>
         </Box>
       </Router>

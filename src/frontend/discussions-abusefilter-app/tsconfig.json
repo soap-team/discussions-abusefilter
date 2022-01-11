@@ -21,6 +21,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "../../shared/trigger.ts",
+    "../../shared/actions.ts"
   ]
 }

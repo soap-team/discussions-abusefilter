@@ -13,8 +13,9 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import FormContext from '../contexts/FormContext';
+import type { Trigger as TriggerType } from '../../../../shared/trigger';
 
-const actionOptions = [
+const actions = [
   'creates',
   'modifies',
   'creates, modifies',
@@ -37,11 +38,11 @@ const types = [
 
 export default function Trigger({ index }: { index: number }) {
   const { triggers, modifyTriggers } = React.useContext(FormContext);
-  const [action, setAction] = React.useState(actionOptions[0]);
+  const [action, setAction] = React.useState(actions[0]);
   const [platform, setPlatform] = React.useState(platforms[0]);
   const [type, setType] = React.useState(types[0]);
   const [wiki, setWiki] = React.useState('');
-  const trigger = {
+  const trigger: TriggerType = {
     action: action,
     platform: platform,
     type: type,
@@ -83,9 +84,8 @@ export default function Trigger({ index }: { index: number }) {
           color="secondary"
           size="small"
           onChange={handleActionChange}
-          autoWidth
         >
-          {actionOptions.map((action) => <MenuItem key={action} value={action}>{action}</MenuItem>)}
+          {actions.map((action) => <MenuItem key={action} value={action}>{action}</MenuItem>)}
         </Select>
       </FormControl>
       <Typography variant="body2">a/an</Typography>
@@ -95,7 +95,6 @@ export default function Trigger({ index }: { index: number }) {
           color="secondary"
           size="small"
           onChange={handlePlatformChange}
-          autoWidth
         >
           {platforms.map((platform) => <MenuItem key={platform} value={platform}>{platform}</MenuItem>)}
         </Select>
@@ -110,7 +109,6 @@ export default function Trigger({ index }: { index: number }) {
           color="secondary"
           size="small"
           onChange={handleTypeChange}
-          autoWidth
         >
           {types.map((type) => <MenuItem key={type} value={type}>{type}</MenuItem>)}
         </Select>

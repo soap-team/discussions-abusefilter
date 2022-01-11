@@ -14,14 +14,16 @@ import AddIcon from '@mui/icons-material/Add';
 import Trigger from '../components/Trigger';
 import FilterEditor from '../components/FilterEditor';
 import FormContext from '../contexts/FormContext';
-import type { Trigger as TriggerType } from '../contexts/FormContext';
+// import type { Trigger as TriggerType } from '../../../../shared/trigger';
+import type { Action as FilterAction } from '../../../../shared/actions';
+import Action from '../components/Action';
 
 export default function Filter() {
   const { filterId } = useParams();
 
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const { filter, triggers, modifyTriggers } = React.useContext(FormContext);
+  const { filter, triggers, modifyTriggers, actions, modifyActions } = React.useContext(FormContext);
   const [errors] = React.useState(0);
 
   const handleNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -33,18 +35,27 @@ export default function Filter() {
   };
 
   const handleNewTrigger = () => {
-    const newTriggers = [...triggers, [{
+    const newTriggers = [...triggers, {
       action: 'creates',
       platform: 'article comment',
       type: 'post',
       wiki: '',
-    }] as unknown as TriggerType];
+    }];
     modifyTriggers(newTriggers);
+  };
+
+  const handleNewAction = () => {
+    const newActions = [...actions, {
+      type: 'log',
+      webhook: '',
+      content: '',
+    } as FilterAction];
+    modifyActions(newActions);
   };
 
   const handleSave = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-    console.log(name, description, filter, triggers);
+    console.log(name, description, filter, triggers, actions);
     console.log(errors);
     if (errors === 0) {
       console.log('firebase updated');
@@ -56,7 +67,7 @@ export default function Filter() {
   return (
     <>
       <Typography component="h1" variant="h5">Filter #{filterId}: {'name'}</Typography>
-      <Typography variant="caption">{'Last Modified: Noreplyz, 7 January, 00:30 UTC'}</Typography>
+      <Typography variant="caption">{`Last Modified: ${'Noreplyz'}, ${'7 January, 00:30 UTC'}`}</Typography>
       <Stack component="form" autoComplete="off" onSubmit={handleSave} spacing={1} sx={{ mt: 2 }}>
         <Stack direction="column">
           <Typography component="label" htmlFor="filter-name" variant="subtitle2">Name</Typography>
@@ -100,8 +111,8 @@ export default function Filter() {
         </Box>
         <Box>
           <Typography component="h2" variant="subtitle2">Actions</Typography>
-
-          <Button variant="outlined" color="warning" onClick={handleNewTrigger}>
+          {actions.map((action, i) => <Action key={i} index={i} />)}
+          <Button variant="outlined" color="warning" onClick={handleNewAction}>
             <AddIcon fontSize="small" />
             Add an action</Button>
         </Box>
