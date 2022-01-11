@@ -56,16 +56,20 @@ export class DiscussionUtil {
     const text = node.content?.map((subNode) => {
       switch (subNode.type) {
         case 'paragraph':
+          if (subNode.content) {
+            return `${this.getTextContent(subNode)}\n`;
+          }
+          return '';
         case 'bulletList':
         case 'orderedList':
         case 'listItem':
         case 'code_block':
-          return `${this.getTextContent(subNode)}`;
+          return `${this.getTextContent(subNode)}\n`;
         case 'text':
           return `${subNode.text}`;
       }
     });
-    return text?.join('\n') || '';
+    return text?.join('').replace(/\n$/g, '') || '';
   }
 }
 
