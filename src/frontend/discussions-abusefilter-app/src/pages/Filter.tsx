@@ -105,14 +105,14 @@ export default function Filter() {
           <Typography component="h2" variant="subtitle2">Triggers</Typography>
           <Typography variant="body2">The filter will only trigger on the following events:</Typography>
           {triggers.map((trigger, i) => <Trigger key={i} index={i} />)}
-          <Button variant="outlined" color="warning" onClick={handleNewTrigger} startIcon={<AddIcon/>} size="small">
+          <Button variant="outlined" color="secondary" onClick={handleNewTrigger} startIcon={<AddIcon/>} size="small">
             Add a trigger
           </Button>
         </Box>
         <Box>
           <Typography component="h2" variant="subtitle2">Actions</Typography>
           {actions.map((action, i) => <Action key={i} index={i} />)}
-          <Button variant="outlined" color="warning" onClick={handleNewAction} startIcon={<AddIcon/>} size="small">
+          <Button variant="outlined" color="secondary" onClick={handleNewAction} startIcon={<AddIcon/>} size="small">
             Add an action
           </Button>
         </Box>

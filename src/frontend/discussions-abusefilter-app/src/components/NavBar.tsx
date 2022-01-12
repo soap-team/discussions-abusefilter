@@ -14,8 +14,8 @@ import {
   IconButton,
   Tooltip,
 } from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useTheme } from '@mui/material/styles';
 import AuthContext from '../contexts/AuthContext';
 import logo from '../assets/fandom-heart.svg';
@@ -33,7 +33,7 @@ export default function NavBar() {
   };
 
   return (
-    <AppBar position="static" enableColorOnDark>
+    <AppBar position="sticky" enableColorOnDark>
       <Toolbar>
         <Box display="flex" alignItems="center" sx={{ flexGrow: 1 }}>
           <SvgIcon component={RouterLink} to="/" sx={{ mr: 1, mb: 2 }}>
@@ -44,8 +44,8 @@ export default function NavBar() {
           </Typography>
         </Box>
         <Tooltip title="Toggle light/dark theme">
-          <IconButton aria-label="Toggle light/dark theme" onClick={colorMode.toggleColorMode}>
-            {theme.palette.mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+          <IconButton aria-label="Toggle light/dark theme" onClick={colorMode.toggleColorMode} color="inherit">
+            {theme.palette.mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
           </IconButton>
         </Tooltip>
         {token !== '' && <Button color="inherit" sx={{ fontWeight: 700 }} onClick={handleLogout}>Log out</Button>}
