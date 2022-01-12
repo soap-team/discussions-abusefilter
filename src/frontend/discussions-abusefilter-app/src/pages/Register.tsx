@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Typography, TextField, Button, Stack, SvgIcon, Divider, Link, Paper, Box } from '@mui/material';
+import { Typography, TextField, Button, Stack, Link, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
-import { ReactComponent as DiscordLogo } from '../assets/icon_clyde_white_RGB.svg';
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
   // const handleLogin = async () => {
   // const token = await ;
@@ -28,21 +27,13 @@ export default function Login() {
     navigate('/');
   };
 
-  const handleSignup = () => {
-    navigate('/register');
-  };
-
-  const handleDiscordLogin = () => {
-    console.log('discord');
-  };
-
-  const handleForgotPassword = () => {
-    console.log('forgot pw');
+  const handleLogin = () => {
+    navigate('/login');
   };
 
   return (
     <Paper variant="outlined" sx={{ mx: 40, my: 10, p: 10 }}>
-      <Typography component="h1" variant="h5">Login</Typography>
+      <Typography component="h1" variant="h5">Create an account</Typography>
       <Stack component="form" onSubmit={handleSubmit} autoComplete="off" spacing={2} sx={{ mt: 2 }}>
         <Stack direction="column">
           <Typography component="label" htmlFor="login-email" variant="subtitle2">Email</Typography>
@@ -67,38 +58,17 @@ export default function Login() {
             type="password"
           />
         </Stack>
-        <Button variant="contained" color="secondary" type="submit" disableElevation>Log in with email</Button>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Link
-            component="button"
-            type="button"
-            color="secondary"
-            onClick={handleSignup}
-            underline="none"
-          >
-            Don't have an account? Sign up
-          </Link>
-          <Link
-            component="button"
-            type="button"
-            color="secondary"
-            onClick={handleForgotPassword}
-            underline="none"
-          >
-            Forgot Password
-          </Link>
-        </Box>
-        <Divider>Or</Divider>
-        <Button
-          variant="contained"
-          onClick={handleDiscordLogin}
-          disableElevation
-          color="blurple"
-          startIcon={<SvgIcon><DiscordLogo /></SvgIcon>}
+        <Button variant="contained" color="secondary" type="submit" disableElevation>Submit</Button>
+        <Link
+          component="button"
+          type="button"
+          color="secondary"
+          onClick={handleLogin}
+          underline="none"
+          sx={{ display: 'flex', justifyContent: 'flex-start' }}
         >
-        Log in with Discord
-        </Button>
-
+            Already have an account? Log in
+        </Link>
       </Stack>
     </Paper>
   );

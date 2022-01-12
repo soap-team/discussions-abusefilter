@@ -31,7 +31,7 @@ export default function NavBar() {
           <SvgIcon component={RouterLink} to="/" sx={{ mr: 1, mb: 2 }}>
             <img src={logo}/>
           </SvgIcon>
-          <Typography variant="h6" className="links" sx={{ fontWeight: 700 }}>
+          <Typography component="h1" variant="h6" className="links" sx={{ fontWeight: 700 }}>
             <Link component={RouterLink} to="/" color="inherit" underline="none">Discussions AbuseFilter</Link>
           </Typography>
         </Box>

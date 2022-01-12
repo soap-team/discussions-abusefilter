@@ -54,7 +54,7 @@ export default function Filterlist() {
                 <TableCell component="th" scope="row">{row.id}</TableCell>
                 <TableCell>
                   <Typography variant="body2">
-                    <Link component={RouterLink} to={row.id} className="tableLink" color="inherit" underline="none">{row.filterName}</Link>
+                    <Link component={RouterLink} to={row.id} color="inherit" underline="none">{row.filterName}</Link>
                   </Typography>
                 </TableCell>
                 <TableCell>{row.lastEdit}</TableCell>

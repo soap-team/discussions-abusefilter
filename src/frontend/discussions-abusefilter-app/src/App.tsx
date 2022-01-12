@@ -21,9 +21,29 @@ import FilterList from './pages/FilterList';
 import Filter from './pages/Filter';
 import { FormProvider } from './contexts/FormContext';
 import AuthContext from './contexts/AuthContext';
-
 import './App.css';
 import ProtectedRoute from './components/ProtectedRoute';
+import Register from 'pages/Register';
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    blurple: Palette['primary'];
+  }
+
+  // allow configuration using `createTheme`
+  interface PaletteOptions {
+    blurple?: PaletteOptions['primary'];
+  }
+}
+
+// Update the Button's color prop options
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    blurple: true;
+  }
+}
+
+const dtheme = createTheme();
 
 const lightTheme = createTheme({
   typography: {
@@ -52,35 +72,39 @@ const lightTheme = createTheme({
     secondary: {
       main: '#FEC600',
     },
+    blurple: dtheme.palette.augmentColor({
+      color: { main: '#5865F2', contrastText: '#fff' },
+      name: 'blurple',
+    }),
   },
 });
 
-export const darkTheme = createTheme({
-  typography: {
-    fontFamily: [
-      'Rubik',
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#FBEEDB',
-    },
-    secondary: {
-      main: '#FEC600',
-    },
-  },
-});
+// export const darkTheme = createTheme({
+//   typography: {
+//     fontFamily: [
+//       'Rubik',
+//       '-apple-system',
+//       'BlinkMacSystemFont',
+//       '"Segoe UI"',
+//       'Roboto',
+//       '"Helvetica Neue"',
+//       'Arial',
+//       'sans-serif',
+//       '"Apple Color Emoji"',
+//       '"Segoe UI Emoji"',
+//       '"Segoe UI Symbol"',
+//     ].join(','),
+//   },
+//   palette: {
+//     mode: 'light',
+//     primary: {
+//       main: '#FBEEDB',
+//     },
+//     secondary: {
+//       main: '#FEC600',
+//     },
+//   },
+// });
 // primary FEC600 secondary F57C00
 // fandom logo yellow #ffc502 pink #fa035a
 
@@ -89,7 +113,7 @@ export default function App() {
   const { token } = React.useContext(AuthContext);
 
   return (
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : lightTheme}>
       <CssBaseline />
       <Router>
         <NavBar />
@@ -98,7 +122,7 @@ export default function App() {
             <Route path="/" element={token === '' ? <Landing /> : <FilterList />} />
             <Route path="/:filterId" element={<ProtectedRoute><FormProvider><Filter /></FormProvider></ProtectedRoute>} />
             <Route path="/login" element={token === '' ? <Login /> : <Navigate replace to='/' /> } />
-            {/* <Route path="/register" element={token === '' ? <Register /> : <Navigate replace to='/' /> } /> */}
+            <Route path="/register" element={token === '' ? <Register /> : <Navigate replace to='/' /> } />
           </Routes>
         </Box>
       </Router>
