@@ -11,12 +11,20 @@ import {
   SvgIcon,
   Box,
   Link,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { useTheme } from '@mui/material/styles';
 import AuthContext from '../contexts/AuthContext';
 import logo from '../assets/fandom-heart.svg';
+import ColorModeContext from 'contexts/ColorModeContext';
 
 export default function NavBar() {
   const { token, modifyToken } = React.useContext(AuthContext);
+  const colorMode = React.useContext(ColorModeContext);
+  const theme = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -35,6 +43,11 @@ export default function NavBar() {
             <Link component={RouterLink} to="/" color="inherit" underline="none">Discussions AbuseFilter</Link>
           </Typography>
         </Box>
+        <Tooltip title="Toggle light/dark theme">
+          <IconButton aria-label="Toggle light/dark theme" onClick={colorMode.toggleColorMode}>
+            {theme.palette.mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+          </IconButton>
+        </Tooltip>
         {token !== '' && <Button color="inherit" sx={{ fontWeight: 700 }} onClick={handleLogout}>Log out</Button>}
       </Toolbar>
     </AppBar>
