@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as React from 'react';
-import type { Trigger } from '../../../../shared/trigger';
+import type { Trigger } from '@shared/filters';
 import type { Action } from '../../../../shared/actions';
 
 interface FormContext {
@@ -16,9 +16,9 @@ const defaultValues: FormContext = {
   filter: '',
   modifyFilter: () => {},
   triggers: [{
-    action: 'creates',
-    platform: 'article comment',
-    type: 'post',
+    action: 'create',
+    platform: 'article-comment',
+    postType: 'thread',
     wiki: '',
   }],
   modifyTriggers: () => {},

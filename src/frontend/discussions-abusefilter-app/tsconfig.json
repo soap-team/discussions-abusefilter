@@ -26,7 +26,6 @@
   },
   "include": [
     "src",
-    "../../shared/trigger.ts",
     "../../shared/actions.ts"
   ]
 }

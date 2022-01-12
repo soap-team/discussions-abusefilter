@@ -14,7 +14,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Trigger from '../components/Trigger';
 import FilterEditor from '../components/FilterEditor';
 import FormContext from '../contexts/FormContext';
-// import type { Trigger as TriggerType } from '../../../../shared/trigger';
+import type { Trigger as TriggerType } from '@shared/filters';
 import type { Action as FilterAction } from '../../../../shared/actions';
 import Action from '../components/Action';
 
@@ -35,21 +35,21 @@ export default function Filter() {
   };
 
   const handleNewTrigger = () => {
-    const newTriggers = [...triggers, {
-      action: 'creates',
-      platform: 'article comment',
-      type: 'post',
+    const newTriggers: TriggerType[] = [...triggers, {
+      action: 'create',
+      platform: 'article-comment',
+      postType: 'thread',
       wiki: '',
     }];
     modifyTriggers(newTriggers);
   };
 
   const handleNewAction = () => {
-    const newActions = [...actions, {
+    const newActions: FilterAction[] = [...actions, {
       type: 'log',
       webhook: '',
       content: '',
-    } as FilterAction];
+    }];
     modifyActions(newActions);
   };
 
@@ -105,16 +105,16 @@ export default function Filter() {
           <Typography component="h2" variant="subtitle2">Triggers</Typography>
           <Typography variant="body2">The filter will only trigger on the following events:</Typography>
           {triggers.map((trigger, i) => <Trigger key={i} index={i} />)}
-          <Button variant="outlined" color="warning" onClick={handleNewTrigger}>
-            <AddIcon fontSize="small" />
-            Add a trigger</Button>
+          <Button variant="outlined" color="warning" onClick={handleNewTrigger} startIcon={<AddIcon/>} size="small">
+            Add a trigger
+          </Button>
         </Box>
         <Box>
           <Typography component="h2" variant="subtitle2">Actions</Typography>
           {actions.map((action, i) => <Action key={i} index={i} />)}
-          <Button variant="outlined" color="warning" onClick={handleNewAction}>
-            <AddIcon fontSize="small" />
-            Add an action</Button>
+          <Button variant="outlined" color="warning" onClick={handleNewAction} startIcon={<AddIcon/>} size="small">
+            Add an action
+          </Button>
         </Box>
         <Stack direction="row" spacing={1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="contained" component={Link} color="secondary" to="/" disableElevation>Cancel</Button>

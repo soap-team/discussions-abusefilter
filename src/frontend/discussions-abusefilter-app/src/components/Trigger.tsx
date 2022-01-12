@@ -13,52 +13,75 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import FormContext from '../contexts/FormContext';
-import type { Trigger as TriggerType } from '../../../../shared/trigger';
+import type { Trigger as TriggerType, TriggerAction, TriggerPlatform, TriggerPostType } from '@shared/filters';
 
-const actions = [
-  'creates',
-  'modifies',
-  'creates, modifies',
-  'deletes',
-  'moves',
-];
+// const actions = [
+//   'creates',
+//   'modifies',
+//   'creates, modifies',
+//   'deletes',
+//   'moves',
+// ];
 
-const platforms = [
-  'article comment',
-  'discussion',
-  'message wall',
-  'any platform',
-];
+// const platforms = [
+//   'article comment',
+//   'discussion',
+//   'message wall',
+//   'any platform',
+// ];
 
-const types = [
-  'post',
-  'reply',
-  'post or reply',
-];
+// const types = [
+//   'post',
+//   'reply',
+//   'post or reply',
+// ];
+
+const actions: Record<TriggerAction, string> = {
+  'create': 'creates',
+  'modify': 'modifies',
+  'create-modify': 'creates, modifies',
+  'delete': 'deletes',
+  'move': 'moves',
+  'report': 'report',
+};
+
+const platforms: Record<TriggerPlatform, string> = {
+  'article-comment': 'article comment',
+  'discussion': 'discussion',
+  'message-wall': 'message wall',
+  'any': 'any platform',
+  'report': 'report',
+};
+
+const types: Record<TriggerPostType, string> = {
+  'thread': 'post',
+  'reply': 'reply',
+  'any': 'post or reply',
+};
 
 export default function Trigger({ index }: { index: number }) {
   const { triggers, modifyTriggers } = React.useContext(FormContext);
-  const [action, setAction] = React.useState(actions[0]);
-  const [platform, setPlatform] = React.useState(platforms[0]);
-  const [type, setType] = React.useState(types[0]);
+  const [action, setAction] = React.useState('create' as TriggerAction);
+  const [platform, setPlatform] = React.useState('article-comment' as TriggerPlatform);
+  const [type, setType] = React.useState('thread' as TriggerPostType);
   const [wiki, setWiki] = React.useState('');
   const trigger: TriggerType = {
     action: action,
     platform: platform,
-    type: type,
+    postType: type,
     wiki: wiki,
   };
 
   const handleActionChange = (event: SelectChangeEvent) => {
-    setAction(event.target.value);
+    setAction(event.target.value as TriggerAction);
   };
 
   const handlePlatformChange = (event: SelectChangeEvent) => {
-    setPlatform(event.target.value);
+    setPlatform(event.target.value as TriggerPlatform);
   };
 
   const handleTypeChange = (event: SelectChangeEvent) => {
-    setType(event.target.value);
+    setType(event.target.value as TriggerPostType);
   };
 
   const handleWikiChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -85,7 +108,7 @@ export default function Trigger({ index }: { index: number }) {
           size="small"
           onChange={handleActionChange}
         >
-          {actions.map((action) => <MenuItem key={action} value={action}>{action}</MenuItem>)}
+          {Object.entries(actions).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
         </Select>
       </FormControl>
       <Typography variant="body2">a/an</Typography>
@@ -96,7 +119,7 @@ export default function Trigger({ index }: { index: number }) {
           size="small"
           onChange={handlePlatformChange}
         >
-          {platforms.map((platform) => <MenuItem key={platform} value={platform}>{platform}</MenuItem>)}
+          {Object.entries(platforms).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
         </Select>
       </FormControl>
       <FormControl>
@@ -110,7 +133,7 @@ export default function Trigger({ index }: { index: number }) {
           size="small"
           onChange={handleTypeChange}
         >
-          {types.map((type) => <MenuItem key={type} value={type}>{type}</MenuItem>)}
+          {Object.entries(types).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
         </Select>
       </FormControl>
       <Typography variant="body2">on the wiki</Typography>
