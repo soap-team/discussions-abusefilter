@@ -65,7 +65,7 @@ export default function Register() {
           color="secondary"
           onClick={handleLogin}
           underline="none"
-          sx={{ display: 'flex', justifyContent: 'flex-start' }}
+          sx={{ display: 'flex', justifyContent: 'flex-start', textAlign: 'left' }}
         >
             Already have an account? Log in
         </Link>

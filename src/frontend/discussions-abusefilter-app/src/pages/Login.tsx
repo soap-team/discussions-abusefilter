@@ -75,6 +75,7 @@ export default function Login() {
             color="secondary"
             onClick={handleSignup}
             underline="none"
+            sx={{ textAlign: 'right' }}
           >
             Don't have an account? Sign up
           </Link>
@@ -84,6 +85,7 @@ export default function Login() {
             color="secondary"
             onClick={handleForgotPassword}
             underline="none"
+            sx={{ textAlign: 'right' }}
           >
             Forgot Password
           </Link>

@@ -25,6 +25,7 @@ export default function NavBar() {
   const { token, modifyToken } = React.useContext(AuthContext);
   const colorMode = React.useContext(ColorModeContext);
   const theme = useTheme();
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -39,17 +40,22 @@ export default function NavBar() {
           <SvgIcon component={RouterLink} to="/" sx={{ mr: 1, mb: 2 }}>
             <img src={logo}/>
           </SvgIcon>
-          <Typography component="h1" variant="h6" className="links" sx={{ fontWeight: 700 }}>
+          <Typography component="h1" variant="h6" className="links" sx={{ fontWeight: theme.typography.fontWeightBold }}>
             <Link component={RouterLink} to="/" color="inherit" underline="none">Discussions AbuseFilter</Link>
           </Typography>
         </Box>
-        <Tooltip title="Toggle light/dark theme">
-          <IconButton aria-label="Toggle light/dark theme" onClick={colorMode.toggleColorMode} color="inherit">
+        <Tooltip title="Toggle light/dark mode">
+          <IconButton aria-label="Toggle light/dark mode" onClick={colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
           </IconButton>
         </Tooltip>
-        {token !== '' && <Button color="inherit" sx={{ fontWeight: 700 }} onClick={handleLogout}>Log out</Button>}
+        {token !== '' &&
+          <Button color="inherit" sx={{ fontWeight: theme.typography.fontWeightBold }} onClick={handleLogout}>
+            Log out
+          </Button>
+        }
       </Toolbar>
     </AppBar>
   );
 }
+

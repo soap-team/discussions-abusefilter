@@ -25,7 +25,7 @@ export default function Landing() {
       flexDirection: 'column',
       py: 19,
     }}>
-      <Typography>You must be logged in to use this tool.</Typography>
+      <Typography sx={{ color: '#000000de' }}>You must be logged in to use this tool.</Typography>
       <Button variant="contained" color="secondary" disableElevation sx={{ fontWeight: 700, px: 5 }} onClick={handleOnClick}>Log in</Button>
     </Stack>
   );

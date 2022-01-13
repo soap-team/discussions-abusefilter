@@ -24,7 +24,7 @@ export default function FilterEditor() {
 
   return (
     <>
-      {alignment === 'gui' ? <FilterUIEditor /> : <FilterCodeEditor /> }
+      {alignment === 'ui' ? <FilterUIEditor /> : <FilterCodeEditor /> }
       <ToggleButtonGroup
         value={alignment}
         exclusive
@@ -34,11 +34,11 @@ export default function FilterEditor() {
         aria-label="Filter Editor Toggle"
         sx={{ display: 'flex', justifyContent: 'flex-end' }}
       >
-        <ToggleButton value="code" aria-label="code">
+        <ToggleButton value="code" aria-label="Javascript editor toggle">
           <Javascript />
           Javascript Editor
         </ToggleButton>
-        <ToggleButton value="gui" aria-label="gui">
+        <ToggleButton value="ui" aria-label="UI editor toggle">
           <PanToolAlt />
           UI Editor
         </ToggleButton>

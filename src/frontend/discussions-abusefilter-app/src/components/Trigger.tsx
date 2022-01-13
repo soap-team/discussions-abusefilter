@@ -13,28 +13,7 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import FormContext from '../contexts/FormContext';
-import type { Trigger as TriggerType, TriggerAction, TriggerPlatform, TriggerPostType } from '@shared/filters';
-
-// const actions = [
-//   'creates',
-//   'modifies',
-//   'creates, modifies',
-//   'deletes',
-//   'moves',
-// ];
-
-// const platforms = [
-//   'article comment',
-//   'discussion',
-//   'message wall',
-//   'any platform',
-// ];
-
-// const types = [
-//   'post',
-//   'reply',
-//   'post or reply',
-// ];
+import type { TriggerAction, TriggerPlatform, TriggerPostType } from '@shared/filters';
 
 const actions: Record<TriggerAction, string> = {
   'create': 'creates',
@@ -42,14 +21,14 @@ const actions: Record<TriggerAction, string> = {
   'create-modify': 'creates, modifies',
   'delete': 'deletes',
   'move': 'moves',
-  'report': 'report',
+  'report': 'reports',
 };
 
 const platforms: Record<TriggerPlatform, string> = {
   'article-comment': 'article comment',
   'discussion': 'discussion',
   'message-wall': 'message wall',
-  'any': 'any platform',
+  'any': 'any',
   'report': 'report',
 };
 
@@ -65,15 +44,13 @@ export default function Trigger({ index }: { index: number }) {
   const [platform, setPlatform] = React.useState('article-comment' as TriggerPlatform);
   const [type, setType] = React.useState('thread' as TriggerPostType);
   const [wiki, setWiki] = React.useState('');
-  const trigger: TriggerType = {
-    action: action,
-    platform: platform,
-    postType: type,
-    wiki: wiki,
-  };
 
   const handleActionChange = (event: SelectChangeEvent) => {
     setAction(event.target.value as TriggerAction);
+    if (event.target.value === 'report') {
+      setPlatform('any');
+      setType('any');
+    }
   };
 
   const handlePlatformChange = (event: SelectChangeEvent) => {
@@ -90,7 +67,12 @@ export default function Trigger({ index }: { index: number }) {
 
   React.useEffect(() => {
     const newTriggers = [...triggers];
-    newTriggers[index] = trigger;
+    newTriggers[index] = {
+      action: action,
+      platform: platform,
+      postType: type,
+      wiki: wiki,
+    };
     modifyTriggers(newTriggers);
   }, [action, platform, type, wiki]);
 
@@ -111,13 +93,14 @@ export default function Trigger({ index }: { index: number }) {
           {Object.entries(actions).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
         </Select>
       </FormControl>
-      <Typography variant="body2">a/an</Typography>
+      {platform !== 'any' && <Typography variant="body2">a/an</Typography>}
       <FormControl>
         <Select
           value={platform}
           color="secondary"
           size="small"
           onChange={handlePlatformChange}
+          disabled={action === 'report'}
         >
           {Object.entries(platforms).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
         </Select>
@@ -132,6 +115,7 @@ export default function Trigger({ index }: { index: number }) {
           color="secondary"
           size="small"
           onChange={handleTypeChange}
+          disabled={action === 'report'}
         >
           {Object.entries(types).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
         </Select>

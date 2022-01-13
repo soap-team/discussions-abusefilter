@@ -84,7 +84,6 @@ export default function Filter() {
         <Stack direction="column">
           <Typography component="label" htmlFor="filter-description" variant="subtitle2">Description</Typography>
           <TextField
-            // style={theme === 'light' ? { backgroundColor: '#fff' } : { backgroundColor: '#424242' }}
             id="filter-description"
             multiline
             minRows={1}
@@ -98,7 +97,7 @@ export default function Filter() {
           />
         </Stack>
         <Box>
-          <Typography component="label" variant="subtitle2">Filter</Typography>
+          <Typography component="h2" variant="subtitle2">Filter</Typography>
           <FilterEditor />
         </Box>
         <Box>

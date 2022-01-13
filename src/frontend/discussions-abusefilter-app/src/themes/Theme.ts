@@ -48,7 +48,6 @@ export const getDesignTokens = (mode: PaletteMode) => ({
     mode,
     ...(mode === 'light' ?
       {
-        // palette values for light mode
         primary: {
           main: '#FBEEDB',
         },
@@ -57,7 +56,6 @@ export const getDesignTokens = (mode: PaletteMode) => ({
         },
       } :
       {
-        // palette values for dark mode
         primary: {
           main: '#FBEEDB',
         },

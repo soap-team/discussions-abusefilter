@@ -14,6 +14,7 @@ import {
   Stack,
   Link,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 function createData(id: string, filterName: string, lastEdit: string, wikis: string[], hits: number) {
   return { id, filterName, lastEdit, wikis, hits };
@@ -25,27 +26,36 @@ const rows = [
   createData('3', 'test3', 'Noreplyz', ['avatar', 'noreply', 'noreply', 'noreply', 'noreply'], 10),
 ];
 
-export default function Filterlist() {
+const headings = [
+  'ID',
+  'Filter',
+  'Last edited by',
+  'Wikis',
+  'Hits',
+];
+
+export default function Filters() {
   const [filterData] = React.useState(rows);
+  const theme = useTheme();
 
   return (
     <>
       <Typography component="h1" variant="h4">Filters</Typography>
       <Stack direction="row" spacing={1}>
-        <Typography>
-          <strong>{0} Enabled</strong>
-        </Typography>
+        <Typography sx={{ fontWeight: 700 }}>{0} Enabled</Typography>
         <Typography>{0} Disabled</Typography>
       </Stack>
       <TableContainer component={Paper} variant="outlined">
-        <Table size="small" aria-label="Filter list">
-          <TableHead>
+        <Table size="small" aria-label="Filters">
+          <TableHead sx={{ backgroundColor: theme.palette.primary.main }}>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Filter</TableCell>
-              <TableCell>Last edited by</TableCell>
-              <TableCell>Wikis</TableCell>
-              <TableCell>Hits</TableCell>
+              {headings.map((heading) =>
+                <TableCell key={heading} sx={{
+                  color: theme.palette.getContrastText(theme.palette.primary.main),
+                  fontWeight: theme.typography.fontWeightBold,
+                }}>
+                  {heading}
+                </TableCell>)}
             </TableRow>
           </TableHead>
           <TableBody>

@@ -1,4 +1,13 @@
 .CodeMirror {
-  border: 1px solid #c4c4c4;
+  border-radius: 4px;
+}
+
+.codemirror-light {
+  outline: 1px solid #c4c4c4;
+  border-radius: 4px;
+}
+
+.codemirror-dark {
+  outline: 1px solid #494949;
   border-radius: 4px;
 }
