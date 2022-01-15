@@ -29,7 +29,7 @@ export default function FilterEditor() {
         value={alignment}
         exclusive
         size="small"
-        color="secondary"
+        color="primary"
         onChange={handleAlignment}
         aria-label="Filter Editor Toggle"
         sx={{ display: 'flex', justifyContent: 'flex-end' }}

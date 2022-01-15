@@ -50,7 +50,7 @@ export default function Login() {
             id="login-email"
             variant="outlined"
             size="small"
-            color="secondary"
+            color="primary"
             defaultValue={email}
             onBlur={handleEmailChange}
           />
@@ -61,18 +61,18 @@ export default function Login() {
             id="login-password"
             variant="outlined"
             size="small"
-            color="secondary"
+            color="primary"
             defaultValue={password}
             onBlur={handlePasswordChange}
             type="password"
           />
         </Stack>
-        <Button variant="contained" color="secondary" type="submit" disableElevation>Log in with email</Button>
+        <Button variant="contained" color="primary" type="submit" disableElevation>Log in with email</Button>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Link
             component="button"
             type="button"
-            color="secondary"
+            color="primary"
             onClick={handleSignup}
             underline="none"
             sx={{ textAlign: 'right' }}
@@ -82,7 +82,7 @@ export default function Login() {
           <Link
             component="button"
             type="button"
-            color="secondary"
+            color="primary"
             onClick={handleForgotPassword}
             underline="none"
             sx={{ textAlign: 'right' }}
@@ -90,7 +90,7 @@ export default function Login() {
             Forgot Password
           </Link>
         </Box>
-        <Divider>Or</Divider>
+        <Divider>or</Divider>
         <Button
           variant="contained"
           onClick={handleDiscordLogin}

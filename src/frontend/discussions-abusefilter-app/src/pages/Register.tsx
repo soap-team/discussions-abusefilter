@@ -41,7 +41,7 @@ export default function Register() {
             id="login-email"
             variant="outlined"
             size="small"
-            color="secondary"
+            color="primary"
             defaultValue={email}
             onBlur={handleEmailChange}
           />
@@ -52,17 +52,17 @@ export default function Register() {
             id="login-password"
             variant="outlined"
             size="small"
-            color="secondary"
+            color="primary"
             defaultValue={password}
             onBlur={handlePasswordChange}
             type="password"
           />
         </Stack>
-        <Button variant="contained" color="secondary" type="submit" disableElevation>Submit</Button>
+        <Button variant="contained" color="primary" type="submit" disableElevation>Submit</Button>
         <Link
           component="button"
           type="button"
-          color="secondary"
+          color="primary"
           onClick={handleLogin}
           underline="none"
           sx={{ display: 'flex', justifyContent: 'flex-start', textAlign: 'left' }}

@@ -80,13 +80,13 @@ export default function Trigger({ index }: { index: number }) {
     <Stack direction="row" spacing={1} sx={{ alignItems: 'center', my: 2 }}>
       <Typography variant="body2">A user</Typography>
       <FormControl>
-        <InputLabel id="demo-simple-select-label" color="secondary">Action Options</InputLabel>
+        <InputLabel id="demo-simple-select-label" color="primary">Action Options</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={action}
           label="Action Options"
-          color="secondary"
+          color="primary"
           size="small"
           onChange={handleActionChange}
         >
@@ -97,7 +97,7 @@ export default function Trigger({ index }: { index: number }) {
       <FormControl>
         <Select
           value={platform}
-          color="secondary"
+          color="primary"
           size="small"
           onChange={handlePlatformChange}
           disabled={action === 'report'}
@@ -106,13 +106,13 @@ export default function Trigger({ index }: { index: number }) {
         </Select>
       </FormControl>
       <FormControl>
-        <InputLabel id="2" color="secondary">Types</InputLabel>
+        <InputLabel id="2" color="primary">Types</InputLabel>
         <Select
           labelId="2"
           id="21"
           value={type}
           label="Types"
-          color="secondary"
+          color="primary"
           size="small"
           onChange={handleTypeChange}
           disabled={action === 'report'}
@@ -121,7 +121,7 @@ export default function Trigger({ index }: { index: number }) {
         </Select>
       </FormControl>
       <Typography variant="body2">on the wiki</Typography>
-      <TextField size="small" color="secondary" defaultValue={wiki} onBlur={handleWikiChange}/>
+      <TextField size="small" color="primary" defaultValue={wiki} onBlur={handleWikiChange}/>
       <IconButton size="small" aria-label="delete">
         <ClearIcon />
       </IconButton>

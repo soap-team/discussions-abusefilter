@@ -14,7 +14,7 @@ export default function FilterCodeEditor() {
 
   return (
     <>
-      <Button variant="outlined" color="secondary" onClick={handleNewRule} startIcon={<AddIcon/>} size="small">
+      <Button variant="outlined" color="primary" onClick={handleNewRule} startIcon={<AddIcon/>} size="small">
         Add rule
       </Button>
     </>

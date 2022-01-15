@@ -34,7 +34,7 @@ export default function NavBar() {
   };
 
   return (
-    <AppBar position="sticky" enableColorOnDark>
+    <AppBar position="sticky" color="fandomPurple" enableColorOnDark>
       <Toolbar>
         <Box display="flex" alignItems="center" sx={{ flexGrow: 1 }}>
           <SvgIcon component={RouterLink} to="/" sx={{ mr: 1, mb: 2 }}>

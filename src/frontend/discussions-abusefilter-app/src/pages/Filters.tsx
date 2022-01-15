@@ -15,6 +15,7 @@ import {
   Link,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { fandomPurple } from 'themes/Theme';
 
 function createData(id: string, filterName: string, lastEdit: string, wikis: string[], hits: number) {
   return { id, filterName, lastEdit, wikis, hits };
@@ -47,11 +48,11 @@ export default function Filters() {
       </Stack>
       <TableContainer component={Paper} variant="outlined">
         <Table size="small" aria-label="Filters">
-          <TableHead sx={{ backgroundColor: theme.palette.primary.main }}>
+          <TableHead sx={{ backgroundColor: fandomPurple }}>
             <TableRow>
               {headings.map((heading) =>
                 <TableCell key={heading} sx={{
-                  color: theme.palette.getContrastText(theme.palette.primary.main),
+                  color: theme.palette.getContrastText(theme.palette.secondary.main),
                   fontWeight: theme.typography.fontWeightBold,
                 }}>
                   {heading}

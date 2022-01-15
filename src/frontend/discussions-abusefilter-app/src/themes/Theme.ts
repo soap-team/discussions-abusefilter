@@ -4,11 +4,13 @@ import { createTheme } from '@mui/material/styles';
 declare module '@mui/material/styles' {
     interface Palette {
       blurple: Palette['primary'];
+      fandomPurple: Palette['primary'];
     }
 
     // allow configuration using `createTheme`
     interface PaletteOptions {
       blurple?: PaletteOptions['primary'];
+      fandomPurple?: PaletteOptions['primary'];
     }
   }
 
@@ -18,8 +20,22 @@ declare module '@mui/material/styles' {
       blurple: true;
     }
   }
+  // Update the Button's color prop options
+  declare module '@mui/material/AppBar' {
+    interface AppBarPropsColorOverrides {
+      fandomPurple: true;
+    }
+  }
+  // Update the Button's color prop options
+  declare module '@mui/material/TableHead' {
+    interface TableHeadPropsColorOverrides {
+      fandomPurple: true;
+    }
+  }
 
 const dtheme = createTheme();
+
+export const fandomPurple = '#520044';
 
 export const getDesignTokens = (mode: PaletteMode) => ({
   typography: {
@@ -45,22 +61,26 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       color: { main: '#5865F2', contrastText: '#fff' },
       name: 'blurple',
     }),
+    fandomPurple: dtheme.palette.augmentColor({
+      color: { main: fandomPurple, contrastText: '#fff' },
+      name: 'fandomPurple',
+    }),
     mode,
     ...(mode === 'light' ?
       {
         primary: {
-          main: '#FBEEDB',
+          main: fandomPurple,
         },
         secondary: {
-          main: '#FEC600',
+          main: '#9b004e',
         },
       } :
       {
         primary: {
-          main: '#FBEEDB',
+          main: '#f00079',
         },
         secondary: {
-          main: '#FEC600',
+          main: '#bd005f',
         },
       }),
   },

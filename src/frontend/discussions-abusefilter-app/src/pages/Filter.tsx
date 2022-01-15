@@ -75,7 +75,7 @@ export default function Filter() {
             id="filter-name"
             variant="outlined"
             size="small"
-            color="secondary"
+            color="primary"
             defaultValue={name}
             onBlur={handleNameChange}
             fullWidth
@@ -90,34 +90,34 @@ export default function Filter() {
             maxRows={5}
             variant="outlined"
             size="small"
-            color="secondary"
+            color="primary"
             defaultValue={description}
             onBlur={handleDescriptionChange}
             fullWidth
           />
         </Stack>
         <Box>
-          <Typography component="h2" variant="subtitle2">Filter</Typography>
-          <FilterEditor />
-        </Box>
-        <Box>
           <Typography component="h2" variant="subtitle2">Triggers</Typography>
           <Typography variant="body2">The filter will only trigger on the following events:</Typography>
           {triggers.map((trigger, i) => <Trigger key={i} index={i} />)}
-          <Button variant="outlined" color="secondary" onClick={handleNewTrigger} startIcon={<AddIcon/>} size="small">
+          <Button variant="outlined" color="primary" onClick={handleNewTrigger} startIcon={<AddIcon/>} size="small">
             Add a trigger
           </Button>
         </Box>
         <Box>
+          <Typography component="h2" variant="subtitle2">Filter</Typography>
+          <FilterEditor />
+        </Box>
+        <Box>
           <Typography component="h2" variant="subtitle2">Actions</Typography>
           {actions.map((action, i) => <Action key={i} index={i} />)}
-          <Button variant="outlined" color="secondary" onClick={handleNewAction} startIcon={<AddIcon/>} size="small">
+          <Button variant="outlined" color="primary" onClick={handleNewAction} startIcon={<AddIcon/>} size="small">
             Add an action
           </Button>
         </Box>
         <Stack direction="row" spacing={1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button variant="contained" component={Link} color="secondary" to="/" disableElevation>Cancel</Button>
-          <Button variant="contained" color="secondary" type="submit" disableElevation>Save</Button>
+          <Button variant="outlined" component={Link} color="secondary" to="/" disableElevation>Cancel</Button>
+          <Button variant="contained" color="primary" type="submit" disableElevation>Save</Button>
         </Stack>
       </Stack>
     </>

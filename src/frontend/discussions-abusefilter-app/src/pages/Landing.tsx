@@ -26,7 +26,7 @@ export default function Landing() {
       py: 19,
     }}>
       <Typography sx={{ color: '#000000de' }}>You must be logged in to use this tool.</Typography>
-      <Button variant="contained" color="secondary" disableElevation sx={{ fontWeight: 700, px: 5 }} onClick={handleOnClick}>Log in</Button>
+      <Button variant="contained" color="primary" disableElevation sx={{ fontWeight: 700, px: 5 }} onClick={handleOnClick}>Log in</Button>
     </Stack>
   );
 }

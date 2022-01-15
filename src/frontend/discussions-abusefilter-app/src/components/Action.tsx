@@ -79,7 +79,7 @@ export default function Action({ index }: { index: number }) {
           </Grid>
           <Grid item xs>
             <FormControl fullWidth>
-              <Select id="action-type" color="secondary" size="small" variant="outlined" value={action} onChange={handleActionChange}>
+              <Select id="action-type" color="primary" size="small" variant="outlined" value={action} onChange={handleActionChange}>
                 {types.map((type) => <MenuItem key={type} value={type}>{type}</MenuItem>)}
               </Select>
               {/* <FormHelperText>{moveError ? "You cannot use 'Move to Category' with more than one wiki." : ""}</FormHelperText> */}
