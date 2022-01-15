@@ -9,6 +9,7 @@ import {
   TextField,
   Box,
   Stack,
+  Paper,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Trigger from '../components/Trigger';
@@ -98,11 +99,13 @@ export default function Filter() {
         </Stack>
         <Box>
           <Typography component="h2" variant="subtitle2">Triggers</Typography>
-          <Typography variant="body2">The filter will only trigger on the following events:</Typography>
-          {triggers.map((trigger, i) => <Trigger key={i} index={i} />)}
-          <Button variant="outlined" color="primary" onClick={handleNewTrigger} startIcon={<AddIcon/>} size="small">
+          <Paper variant="outlined" sx={{ p: 2 }} component={Stack} spacing={2}>
+            <Typography variant="body2">The filter will only trigger on the following events:</Typography>
+            {triggers.map((trigger, i) => <Trigger key={i} index={i} />)}
+            <Button variant="outlined" color="primary" onClick={handleNewTrigger} startIcon={<AddIcon/>} size="small" sx={{ width: 'fit-content' }}>
             Add a trigger
-          </Button>
+            </Button>
+          </Paper>
         </Box>
         <Box>
           <Typography component="h2" variant="subtitle2">Filter</Typography>
@@ -110,10 +113,12 @@ export default function Filter() {
         </Box>
         <Box>
           <Typography component="h2" variant="subtitle2">Actions</Typography>
-          {actions.map((action, i) => <Action key={i} index={i} />)}
-          <Button variant="outlined" color="primary" onClick={handleNewAction} startIcon={<AddIcon/>} size="small">
+          <Paper variant="outlined" sx={{ p: 2 }} component={Stack} spacing={2}>
+            {actions.map((action, i) => <Action key={i} index={i} />)}
+            <Button variant="outlined" color="primary" onClick={handleNewAction} startIcon={<AddIcon/>} size="small" sx={{ width: 'fit-content' }}>
             Add an action
-          </Button>
+            </Button>
+          </Paper>
         </Box>
         <Stack direction="row" spacing={1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="outlined" component={Link} color="secondary" to="/" disableElevation>Cancel</Button>

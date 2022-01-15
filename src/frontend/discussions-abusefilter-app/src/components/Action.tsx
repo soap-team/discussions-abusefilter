@@ -10,13 +10,15 @@ import {
   Grid,
   //   FormHelperText,
   FormControl,
+  IconButton,
+  Box,
 } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 import FormContext from '../contexts/FormContext';
 // import type { Action } from '../../../../shared/actions';
 import ActionLog from './ActionLog';
 import ActionReply from './ActionReply';
 import ActionMove from './ActionMove';
-// import ActionMove from './ActionMove';
 
 const types = [
   'Log to Discord',
@@ -32,11 +34,8 @@ export default function Action({ index }: { index: number }) {
 
   const handleActionChange = (event: SelectChangeEvent) => {
     setAction(event.target.value);
-  };
-
-  React.useEffect(() => {
     const newActions = [...actions];
-    switch (action) {
+    switch (event.target.value) {
     case types[0]:
       newActions[index] = {
         type: 'log',
@@ -68,11 +67,22 @@ export default function Action({ index }: { index: number }) {
       break;
     }
     modifyActions(newActions);
-  }, [action]);
+  };
+
+  const handleDelete = () => {
+    const newActions = [...actions];
+    newActions.splice(index, 1);
+    modifyActions(newActions);
+  };
 
   return (
-    <Paper variant="outlined" sx={{ my: 2, p: 2 }}>
-      <Stack direction="column" spacing={2}>
+    <Paper variant="outlined" sx={{ pl: 2, pb: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <IconButton aria-label="Clear" size="small" onClick={handleDelete}>
+          <ClearIcon />
+        </IconButton>
+      </Box>
+      <Stack direction="column" spacing={2} sx={{ pr: 2 }}>
         <Grid container alignItems="center">
           <Grid item xs={3}>
             <Typography component="label" htmlFor="action-type" variant="subtitle2">Type</Typography>

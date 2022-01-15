@@ -5,13 +5,13 @@ import {
   Select,
   TextField,
   Stack,
-  InputLabel,
   MenuItem,
   FormControl,
   IconButton,
   Typography,
 } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
+// import ClearIcon from '@mui/icons-material/Clear';
+import RemoveIcon from '@mui/icons-material/Remove';
 import FormContext from '../contexts/FormContext';
 import type { TriggerAction, TriggerPlatform, TriggerPostType } from '@shared/filters';
 
@@ -65,6 +65,12 @@ export default function Trigger({ index }: { index: number }) {
     setWiki(event.target.value);
   };
 
+  const handleDelete = () => {
+    const newTriggers = [...triggers];
+    newTriggers.splice(index, 1);
+    modifyTriggers(newTriggers);
+  };
+
   React.useEffect(() => {
     const newTriggers = [...triggers];
     newTriggers[index] = {
@@ -77,15 +83,11 @@ export default function Trigger({ index }: { index: number }) {
   }, [action, platform, type, wiki]);
 
   return (
-    <Stack direction="row" spacing={1} sx={{ alignItems: 'center', my: 2 }}>
+    <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
       <Typography variant="body2">A user</Typography>
       <FormControl>
-        <InputLabel id="demo-simple-select-label" color="primary">Action Options</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
           value={action}
-          label="Action Options"
           color="primary"
           size="small"
           onChange={handleActionChange}
@@ -106,12 +108,8 @@ export default function Trigger({ index }: { index: number }) {
         </Select>
       </FormControl>
       <FormControl>
-        <InputLabel id="2" color="primary">Types</InputLabel>
         <Select
-          labelId="2"
-          id="21"
           value={type}
-          label="Types"
           color="primary"
           size="small"
           onChange={handleTypeChange}
@@ -121,9 +119,9 @@ export default function Trigger({ index }: { index: number }) {
         </Select>
       </FormControl>
       <Typography variant="body2">on the wiki</Typography>
-      <TextField size="small" color="primary" defaultValue={wiki} onBlur={handleWikiChange}/>
-      <IconButton size="small" aria-label="delete">
-        <ClearIcon />
+      <TextField size="small" color="primary" defaultValue={wiki} onBlur={handleWikiChange} />
+      <IconButton size="small" aria-label="delete" onClick={handleDelete}>
+        <RemoveIcon />
       </IconButton>
     </Stack>
   );

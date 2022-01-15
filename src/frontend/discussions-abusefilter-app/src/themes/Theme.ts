@@ -86,5 +86,3 @@ export const getDesignTokens = (mode: PaletteMode) => ({
   },
 });
 
-// primary FEC600 secondary F57C00
-// fandom logo yellow #ffc502 pink #fa035a

@@ -11,7 +11,7 @@ import FilterUIEditor from './FilterUIEditor';
 import FilterCodeEditor from './FilterCodeEditor';
 
 export default function FilterEditor() {
-  const [alignment, setAlignment] = React.useState<string | null>('code');
+  const [alignment, setAlignment] = React.useState<string | null>('ui');
 
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -34,13 +34,13 @@ export default function FilterEditor() {
         aria-label="Filter Editor Toggle"
         sx={{ display: 'flex', justifyContent: 'flex-end' }}
       >
-        <ToggleButton value="code" aria-label="Javascript editor toggle">
-          <Javascript />
-          Javascript Editor
-        </ToggleButton>
         <ToggleButton value="ui" aria-label="UI editor toggle">
           <PanToolAlt />
           UI Editor
+        </ToggleButton>
+        <ToggleButton value="code" aria-label="Javascript editor toggle">
+          <Javascript />
+          Javascript Editor
         </ToggleButton>
       </ToggleButtonGroup>
     </>

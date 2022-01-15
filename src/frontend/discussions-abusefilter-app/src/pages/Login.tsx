@@ -41,67 +41,72 @@ export default function Login() {
   };
 
   return (
-    <Paper variant="outlined" sx={{ mx: 40, my: 10, p: 10 }}>
-      <Typography component="h1" variant="h5">Login</Typography>
-      <Stack component="form" onSubmit={handleSubmit} autoComplete="off" spacing={2} sx={{ mt: 2 }}>
-        <Stack direction="column">
-          <Typography component="label" htmlFor="login-email" variant="subtitle2">Email</Typography>
-          <TextField
-            id="login-email"
-            variant="outlined"
-            size="small"
-            color="primary"
-            defaultValue={email}
-            onBlur={handleEmailChange}
-          />
-        </Stack>
-        <Stack direction="column">
-          <Typography component="label" htmlFor="login-password" variant="subtitle2">Password</Typography>
-          <TextField
-            id="login-password"
-            variant="outlined"
-            size="small"
-            color="primary"
-            defaultValue={password}
-            onBlur={handlePasswordChange}
-            type="password"
-          />
-        </Stack>
-        <Button variant="contained" color="primary" type="submit" disableElevation>Log in with email</Button>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Link
-            component="button"
-            type="button"
-            color="primary"
-            onClick={handleSignup}
-            underline="none"
-            sx={{ textAlign: 'right' }}
-          >
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Paper variant="outlined" sx={{ width: '475px', p: 10 }}>
+        <Typography component="h1" variant="h5">Login</Typography>
+        <Stack component="form" onSubmit={handleSubmit} autoComplete="off" spacing={2} sx={{ mt: 2 }}>
+          <Stack direction="column">
+            <Typography component="label" htmlFor="login-email" variant="subtitle2">Email</Typography>
+            <TextField
+              id="login-email"
+              variant="outlined"
+              size="small"
+              color="primary"
+              defaultValue={email}
+              onBlur={handleEmailChange}
+              // type="email"
+              // required
+            />
+          </Stack>
+          <Stack direction="column">
+            <Typography component="label" htmlFor="login-password" variant="subtitle2">Password</Typography>
+            <TextField
+              id="login-password"
+              variant="outlined"
+              size="small"
+              color="primary"
+              defaultValue={password}
+              onBlur={handlePasswordChange}
+              type="password"
+              // required
+            />
+          </Stack>
+          <Button variant="contained" color="primary" type="submit" disableElevation>Log in with email</Button>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Link
+              component="button"
+              type="button"
+              color="primary"
+              onClick={handleSignup}
+              underline="none"
+              sx={{ textAlign: 'left' }}
+            >
             Don't have an account? Sign up
-          </Link>
-          <Link
-            component="button"
-            type="button"
-            color="primary"
-            onClick={handleForgotPassword}
-            underline="none"
-            sx={{ textAlign: 'right' }}
-          >
+            </Link>
+            <Link
+              component="button"
+              type="button"
+              color="primary"
+              onClick={handleForgotPassword}
+              underline="none"
+              sx={{ textAlign: 'right' }}
+            >
             Forgot Password
-          </Link>
-        </Box>
-        <Divider>or</Divider>
-        <Button
-          variant="contained"
-          onClick={handleDiscordLogin}
-          disableElevation
-          color="blurple"
-          startIcon={<SvgIcon><DiscordLogo /></SvgIcon>}
-        >
+            </Link>
+          </Box>
+          <Divider>or</Divider>
+          <Button
+            variant="contained"
+            onClick={handleDiscordLogin}
+            disableElevation
+            color="blurple"
+            startIcon={<SvgIcon><DiscordLogo /></SvgIcon>}
+          >
         Log in with Discord
-        </Button>
+          </Button>
 
-      </Stack>
-    </Paper>
+        </Stack>
+      </Paper>
+    </Box>
   );
 }

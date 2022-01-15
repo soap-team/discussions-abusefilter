@@ -13,6 +13,7 @@ import {
   TableBody,
   Stack,
   Link,
+  Box,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { fandomPurple } from 'themes/Theme';
@@ -40,7 +41,7 @@ export default function Filters() {
   const theme = useTheme();
 
   return (
-    <>
+    <Box>
       <Typography component="h1" variant="h4">Filters</Typography>
       <Stack direction="row" spacing={1}>
         <Typography sx={{ fontWeight: 700 }}>{0} Enabled</Typography>
@@ -65,7 +66,7 @@ export default function Filters() {
                 <TableCell component="th" scope="row">{row.id}</TableCell>
                 <TableCell>
                   <Typography variant="body2">
-                    <Link component={RouterLink} to={row.id} color="inherit" underline="none">{row.filterName}</Link>
+                    <Link component={RouterLink} to={row.id} underline="none">{row.filterName}</Link>
                   </Typography>
                 </TableCell>
                 <TableCell>{row.lastEdit}</TableCell>
@@ -76,6 +77,6 @@ export default function Filters() {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </Box>
   );
 }
