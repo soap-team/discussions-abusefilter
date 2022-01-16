@@ -27,7 +27,7 @@ export default function Landing() {
       height: '347px',
     }}>
       <Typography sx={{ color: theme.palette.mode === 'light' ? '#000000de' : '#fff' }}>You must be logged in to use this tool.</Typography>
-      <Button variant="contained" color="primary" disableElevation sx={{ fontWeight: 700, px: 5 }} onClick={handleOnClick}>Log in</Button>
+      <Button variant="contained" color="primary" disableElevation sx={{ px: 5 }} onClick={handleOnClick}>Log in</Button>
     </Stack>
   );
 }

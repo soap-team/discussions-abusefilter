@@ -40,7 +40,7 @@ export default function NavBar() {
           <SvgIcon component={RouterLink} to="/" sx={{ mr: 1, mb: 2 }}>
             <img src={logo}/>
           </SvgIcon>
-          <Typography component="h1" variant="h6" className="links" sx={{ fontWeight: theme.typography.fontWeightBold }}>
+          <Typography component="h1" variant="h6" className="links" >
             <Link component={RouterLink} to="/" color="inherit" underline="none">Discussions AbuseFilter</Link>
           </Typography>
         </Box>
@@ -50,7 +50,7 @@ export default function NavBar() {
           </IconButton>
         </Tooltip>
         {token !== '' &&
-          <Button color="inherit" sx={{ fontWeight: theme.typography.fontWeightBold }} onClick={handleLogout}>
+          <Button color="inherit" onClick={handleLogout}>
             Log out
           </Button>
         }

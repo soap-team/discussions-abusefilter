@@ -54,7 +54,6 @@ export default function Filters() {
               {headings.map((heading) =>
                 <TableCell key={heading} sx={{
                   color: theme.palette.getContrastText(theme.palette.secondary.main),
-                  fontWeight: theme.typography.fontWeightBold,
                 }}>
                   {heading}
                 </TableCell>)}
