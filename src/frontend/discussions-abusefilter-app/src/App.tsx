@@ -32,9 +32,9 @@ export default function App() {
         <Box component={Container} sx={{ my: 5 }}>
           <Routes>
             <Route path="/" element={token === '' ? <Landing /> : <Filters />} />
-            <Route path="/:filterId" element={token === '' ? <Navigate replace to='/' /> : <FormProvider><Filter /></FormProvider>} />
-            <Route path="/login" element={token === '' ? <Login /> : <Navigate replace to='/' /> } />
-            <Route path="/register" element={token === '' ? <Register /> : <Navigate replace to='/' /> } />
+            <Route path="/:filterId" element={token === '' ? <Navigate replace to='/discussions-abusefilter/' /> : <FormProvider><Filter /></FormProvider>} />
+            <Route path="/login" element={token === '' ? <Login /> : <Navigate replace to='/discussions-abusefilter/' /> } />
+            <Route path="/register" element={token === '' ? <Register /> : <Navigate replace to='/discussions-abusefilter/' /> } />
           </Routes>
         </Box>
       </Router>
