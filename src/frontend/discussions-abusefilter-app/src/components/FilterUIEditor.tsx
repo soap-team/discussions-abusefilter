@@ -32,6 +32,14 @@ export default function FilterCodeEditor() {
   return (
     <Paper variant="outlined" component={Stack} spacing={2} sx={{ p: 2 }}>
       {rules.map((rule, i) => <FilterRule key={i} index={i} />)}
+      <Stack direction="row" spacing={2}>
+        <Button variant="outlined" color="primary" onClick={handleNewRule} startIcon={<AddIcon/>} size="small">
+          OR Block
+        </Button>
+        <Button variant="outlined" color="primary" onClick={handleNewRule} startIcon={<AddIcon/>} size="small">
+          AND Block
+        </Button>
+      </Stack>
       <Paper variant="outlined">
         <Grid container spacing={1} alignItems="center" sx={{ p: 1 }}>
           <Grid item xs={1}>
@@ -51,9 +59,6 @@ export default function FilterCodeEditor() {
           </Grid>
         </Grid>
       </Paper>
-      <Button variant="outlined" color="primary" onClick={handleNewRule} startIcon={<AddIcon/>} size="small" sx={{ width: 'fit-content' }}>
-        Add rule
-      </Button>
     </Paper>
   );
 }

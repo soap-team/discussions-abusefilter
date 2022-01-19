@@ -12,6 +12,7 @@ import {
   FormControl,
   IconButton,
   Box,
+  Tooltip,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import FormContext from '../contexts/FormContext';
@@ -78,9 +79,11 @@ export default function Action({ index }: { index: number }) {
   return (
     <Paper variant="outlined" sx={{ pl: 2, pb: 4 }}>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <IconButton aria-label="Clear" size="small" onClick={handleDelete}>
-          <ClearIcon />
-        </IconButton>
+        <Tooltip title="Delete Action">
+          <IconButton size="small" onClick={handleDelete}>
+            <ClearIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
       <Stack direction="column" spacing={2} sx={{ pr: 2 }}>
         <Grid container alignItems="center">

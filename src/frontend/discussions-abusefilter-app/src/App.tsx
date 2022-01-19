@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <ColorModeProvider>
-      <CssBaseline />
+      <CssBaseline enableColorScheme />
       <Router>
         <NavBar />
         <Box component={Container} sx={{ my: 5 }}>

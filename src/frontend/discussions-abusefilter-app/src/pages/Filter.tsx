@@ -10,8 +10,14 @@ import {
   Box,
   Stack,
   Paper,
+  FormControlLabel,
+  FormGroup,
+  Switch,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Trigger from '../components/Trigger';
 import FilterEditor from '../components/FilterEditor';
 import FormContext from '../contexts/FormContext';
@@ -22,10 +28,15 @@ import Action from '../components/Action';
 export default function Filter() {
   const { filterId } = useParams();
 
+  const [filterEnabled, setFilterEnabled] = React.useState(true);
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
   const { filter, triggers, modifyTriggers, actions, modifyActions } = React.useContext(FormContext);
   const [errors] = React.useState(0);
+
+  const handleFilterEnabledChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterEnabled(event.target.checked);
+  };
 
   const handleNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setName(event.target.value);
@@ -67,8 +78,22 @@ export default function Filter() {
 
   return (
     <>
-      <Typography component="h1" variant="h5">Filter #{filterId}: {'name'}</Typography>
-      <Typography variant="caption">{`Last Modified: ${'Noreplyz'}, ${'7 January, 00:30 UTC'}`}</Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Stack>
+          <Typography component="h1" variant="h5">Filter #{filterId}: {'name'}</Typography>
+          <Typography variant="caption">{`Last Modified: ${'Noreplyz'}, ${'7 January, 00:30 UTC'}`}</Typography>
+        </Stack>
+        <Stack direction="row">
+          <FormGroup sx={{ justifyContent: 'center' }}>
+            <FormControlLabel control={<Switch checked={filterEnabled} onChange={handleFilterEnabledChange} />} label="Filter Enabled" />
+          </FormGroup>
+          <Tooltip title="Duplicate Filter">
+            <IconButton color="primary" size="small">
+              <ContentCopyIcon />
+            </IconButton>
+          </Tooltip>
+        </Stack>
+      </Box>
       <Stack component="form" autoComplete="off" onSubmit={handleSave} spacing={1} sx={{ mt: 2 }}>
         <Stack direction="column">
           <Typography component="label" htmlFor="filter-name" variant="subtitle2">Name</Typography>
