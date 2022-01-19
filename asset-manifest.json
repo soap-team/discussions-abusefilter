@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "//soap-team.github.io/discussions-abusefilter/static/css/main.f13ef8b8.css",
-    "main.js": "//soap-team.github.io/discussions-abusefilter/static/js/main.c6c6748d.js",
-    "static/js/787.b504688a.chunk.js": "//soap-team.github.io/discussions-abusefilter/static/js/787.b504688a.chunk.js",
-    "static/media/banner.png": "//soap-team.github.io/discussions-abusefilter/static/media/banner.6db4e8a718e551c873b0.png",
-    "static/media/fandom-heart.svg": "//soap-team.github.io/discussions-abusefilter/static/media/fandom-heart.96bb4bf6d3ed34283be280e81a5f6690.svg",
-    "index.html": "//soap-team.github.io/discussions-abusefilter/index.html",
-    "static/media/icon_clyde_white_RGB.svg": "//soap-team.github.io/discussions-abusefilter/static/media/icon_clyde_white_RGB.a420227021864513c33f564d51c99590.svg",
-    "main.f13ef8b8.css.map": "//soap-team.github.io/discussions-abusefilter/static/css/main.f13ef8b8.css.map",
-    "main.c6c6748d.js.map": "//soap-team.github.io/discussions-abusefilter/static/js/main.c6c6748d.js.map",
-    "787.b504688a.chunk.js.map": "//soap-team.github.io/discussions-abusefilter/static/js/787.b504688a.chunk.js.map"
+    "main.css": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/static/css/main.f13ef8b8.css",
+    "main.js": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/static/js/main.9f1f1175.js",
+    "static/js/787.b504688a.chunk.js": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/static/js/787.b504688a.chunk.js",
+    "static/media/banner.png": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/static/media/banner.6db4e8a718e551c873b0.png",
+    "static/media/fandom-heart.svg": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/static/media/fandom-heart.96bb4bf6d3ed34283be280e81a5f6690.svg",
+    "index.html": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/index.html",
+    "static/media/icon_clyde_white_RGB.svg": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/static/media/icon_clyde_white_RGB.a420227021864513c33f564d51c99590.svg",
+    "main.f13ef8b8.css.map": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/static/css/main.f13ef8b8.css.map",
+    "main.9f1f1175.js.map": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/static/js/main.9f1f1175.js.map",
+    "787.b504688a.chunk.js.map": "/discussions-abusefilter/src/frontend/discussions-abusefilter-app/static/js/787.b504688a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f13ef8b8.css",
-    "static/js/main.c6c6748d.js"
+    "static/js/main.9f1f1175.js"
   ]
 }
