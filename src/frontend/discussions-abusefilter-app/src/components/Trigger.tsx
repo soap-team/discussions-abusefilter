@@ -4,7 +4,7 @@ import type {
 import {
   Select,
   TextField,
-  Stack,
+  Grid,
   MenuItem,
   FormControl,
   IconButton,
@@ -83,46 +83,62 @@ export default function Trigger({ index }: { index: number }) {
   }, [action, platform, type, wiki]);
 
   return (
-    <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-      <Typography variant="body2">A user</Typography>
-      <FormControl>
-        <Select
-          value={action}
-          color="primary"
-          size="small"
-          onChange={handleActionChange}
-        >
-          {Object.entries(actions).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
-        </Select>
-      </FormControl>
-      {platform !== 'any' && <Typography variant="body2">a/an</Typography>}
-      <FormControl>
-        <Select
-          value={platform}
-          color="primary"
-          size="small"
-          onChange={handlePlatformChange}
-          disabled={action === 'report'}
-        >
-          {Object.entries(platforms).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
-        </Select>
-      </FormControl>
-      <FormControl>
-        <Select
-          value={type}
-          color="primary"
-          size="small"
-          onChange={handleTypeChange}
-          disabled={action === 'report'}
-        >
-          {Object.entries(types).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
-        </Select>
-      </FormControl>
-      <Typography variant="body2">on the wiki</Typography>
-      <TextField size="small" color="primary" defaultValue={wiki} onBlur={handleWikiChange} />
-      <IconButton size="small" aria-label="delete" onClick={handleDelete}>
-        <RemoveIcon />
-      </IconButton>
-    </Stack>
+    <Grid container spacing={1} sx={{ alignItems: 'center' }}>
+      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+        <Typography variant="body2">A user</Typography>
+      </Grid>
+      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+        <FormControl>
+          <Select
+            value={action}
+            color="primary"
+            size="small"
+            onChange={handleActionChange}
+          >
+            {Object.entries(actions).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+        {platform !== 'any' && <Typography variant="body2">a/an</Typography>}
+      </Grid>
+      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+        <FormControl>
+          <Select
+            value={platform}
+            color="primary"
+            size="small"
+            onChange={handlePlatformChange}
+            disabled={action === 'report'}
+          >
+            {Object.entries(platforms).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+        <FormControl>
+          <Select
+            value={type}
+            color="primary"
+            size="small"
+            onChange={handleTypeChange}
+            disabled={action === 'report'}
+          >
+            {Object.entries(types).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+        <Typography variant="body2">on the wiki</Typography>
+      </Grid>
+      <Grid item lg md={11} sm={11} xs={7}>
+        <TextField size="small" color="primary" defaultValue={wiki} onBlur={handleWikiChange} fullWidth />
+      </Grid>
+      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+        <IconButton size="small" aria-label="delete" onClick={handleDelete}>
+          <RemoveIcon />
+        </IconButton>
+      </Grid>
+    </Grid>
   );
 }

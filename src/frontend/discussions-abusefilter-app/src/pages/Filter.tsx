@@ -38,6 +38,10 @@ export default function Filter() {
     setFilterEnabled(event.target.checked);
   };
 
+  const handleDuplicateFilter = () => {
+    console.log('filter duplicated');
+  };
+
   const handleNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setName(event.target.value);
   };
@@ -88,7 +92,7 @@ export default function Filter() {
             <FormControlLabel control={<Switch checked={filterEnabled} onChange={handleFilterEnabledChange} />} label="Filter Enabled" />
           </FormGroup>
           <Tooltip title="Duplicate Filter">
-            <IconButton color="primary" size="small">
+            <IconButton color="primary" size="small" onClick={handleDuplicateFilter}>
               <ContentCopyIcon />
             </IconButton>
           </Tooltip>

@@ -67,15 +67,13 @@ export default function FilterRule({ index }: { index: number }) {
             </Tooltip>
           </Grid>
         </Grid>
-        {conditions.map(() =>
-          <>
-            <Grid container item spacing={1} alignItems="center">
-              <Grid item xs={1}>
-                <Typography component="p" variant="subtitle2" sx={{ textAlign: 'center' }}>{ruleOperator}</Typography>
-              </Grid>
-              <FilterRuleInputRow />
+        {conditions.map((condition, i) =>
+          <Grid container item spacing={1} alignItems="center" key={i}>
+            <Grid item xs={1}>
+              <Typography component="p" variant="subtitle2" sx={{ textAlign: 'center' }}>{ruleOperator}</Typography>
             </Grid>
-          </>,
+            <FilterRuleInputRow />
+          </Grid>,
         )}
         <Grid container item spacing={1} alignItems="center">
           <Grid item xs={1}>
