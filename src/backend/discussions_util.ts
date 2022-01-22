@@ -1,14 +1,7 @@
-import type { ApiInterface } from 'fandom-api';
 import type { ContentNode } from 'fandom-api/dist/controllers/discussion_types/json_model';
 
 export class DiscussionUtil {
-  api: ApiInterface;
-
-  constructor(api: ApiInterface) {
-    this.api = api;
-  }
-
-  convertLinkToAbsolute(link: string, wiki: string): string {
+  static convertLinkToAbsolute(link: string, wiki: string): string {
     if (link.startsWith('/')) {
       link = `https://${wiki}${link}`;
     }
@@ -17,7 +10,7 @@ export class DiscussionUtil {
 
   // Recursively retrieves a list of links from any node with content.
   //  Links only appear in text and opengraph nodes
-  getLinks(doc: ContentNode, wiki: string): string[] {
+  static getLinks(doc: ContentNode, wiki: string): string[] {
     let links: string[] = [];
 
     if (doc && doc.content && doc.content.length > 0) {
@@ -52,7 +45,7 @@ export class DiscussionUtil {
     return links.map(link => this.convertLinkToAbsolute(link, wiki));
   }
 
-  getTextContent(node: ContentNode): string {
+  static getTextContent(node: ContentNode): string {
     const text = node.content?.map((subNode) => {
       switch (subNode.type) {
         case 'paragraph':

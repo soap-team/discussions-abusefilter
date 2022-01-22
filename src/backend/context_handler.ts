@@ -83,7 +83,7 @@ export class ContextHandler {
 
   async getUserContext(wiki: string, username: string | null): Promise<UserContext | undefined> {
     if (!username) {
-      return undefined;
+      return;
     }
     const params = {
       action: 'query',
@@ -103,6 +103,9 @@ export class ContextHandler {
 
     const data = await this.apiInterface.mwGet<QueryUserResponse>(wiki, params);
     const userData = data.query.users[0];
+    if ('missing' in userData) {
+      return;
+    }
     return {
       ...userData,
       registration: userData.registration === null && userData.userid < 30000 ? '2006-06-01T00:00:00Z' : userData.registration,
@@ -114,11 +117,11 @@ export class ContextHandler {
     platform: MessengerPlatform,
     postType: MessengerPostType,
     url: string,
-  }): Promise<ForumThreadResponse | EmbeddedPost> {
+  }): Promise<ForumThreadResponse | EmbeddedPost | undefined> {
     switch (platform) {
       case 'discussion': return this.getDiscussionsContext({ wiki, postType, url });
     }
-    throw new Error(`Unsupported platform ${platform}`);
+    console.warn(`Unsupported platform ${platform}`);
   }
 
   async getContext({ wiki, platform, postType, url }: {

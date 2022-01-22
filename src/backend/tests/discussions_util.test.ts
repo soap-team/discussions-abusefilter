@@ -3,13 +3,6 @@ import type { JsonModel } from 'fandom-api/dist/controllers/discussion_types/jso
 import { ApiInterface } from 'fandom-api';
 
 describe('DiscussionsUtil', () => {
-  let util: DiscussionUtil;
-
-  beforeEach(() => {
-    const api = new ApiInterface({});
-    util = new DiscussionUtil(api);
-  });
-
   it('gets links from a JSON model - openGraph and marks', () => {
     const model: JsonModel = {
       type: 'doc',
@@ -36,7 +29,7 @@ describe('DiscussionsUtil', () => {
       }],
     };
 
-    expect(util.getLinks(model, 'community.fandom.com')).toEqual(['https://google.com', 'https://fandom.com']);
+    expect(DiscussionUtil.getLinks(model, 'community.fandom.com')).toEqual(['https://google.com', 'https://fandom.com']);
   });
 
   it('parses local links', () => {
@@ -58,7 +51,7 @@ describe('DiscussionsUtil', () => {
       }],
     };
 
-    expect(util.getLinks(model, 'community.fandom.com')).toEqual(['https://community.fandom.com/wiki/Test']);
+    expect(DiscussionUtil.getLinks(model, 'community.fandom.com')).toEqual(['https://community.fandom.com/wiki/Test']);
   });
 
   it('looks for links in lists', () => {
@@ -89,7 +82,7 @@ describe('DiscussionsUtil', () => {
       }],
     };
 
-    expect(util.getLinks(model, 'community.fandom.com')).toEqual(['https://community.fandom.com/wiki/Test']);
+    expect(DiscussionUtil.getLinks(model, 'community.fandom.com')).toEqual(['https://community.fandom.com/wiki/Test']);
   });
 
   it('gets the text content from a JSON model', () => {
@@ -357,6 +350,6 @@ describe('DiscussionsUtil', () => {
       ],
     };
 
-    expect(util.getTextContent(model)).toEqual('This is sample text.\nThis contains bolded and bolded and italicized and even with a link.\nThere\'s an OpenGraph ^ there \nA separate link: \nImage: \nBullet with bold\nNumber\nNumber 2\nText\n@Noreplyz hello text');
+    expect(DiscussionUtil.getTextContent(model)).toEqual('This is sample text.\nThis contains bolded and bolded and italicized and even with a link.\nThere\'s an OpenGraph ^ there \nA separate link: \nImage: \nBullet with bold\nNumber\nNumber 2\nText\n@Noreplyz hello text');
   });
 });
