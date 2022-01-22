@@ -25,7 +25,7 @@ export type Filter = {
 };
 
 export type TriggerAction = 'create' | 'modify' | 'create-modify' | 'delete' | 'move' | 'report';
-export type TriggerPlatform = 'article-comment' | 'discussion' | 'message-wall' | 'any' | 'report';
+export type TriggerPlatform = 'article-comment' | 'discussion' | 'message-wall' | 'any';
 export type TriggerPostType = 'thread' | 'reply' | 'any';
 
 export type Trigger = {

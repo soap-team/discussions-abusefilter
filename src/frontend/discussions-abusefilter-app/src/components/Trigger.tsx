@@ -29,7 +29,6 @@ const platforms: Record<TriggerPlatform, string> = {
   'discussion': 'discussion',
   'message-wall': 'message wall',
   'any': 'any',
-  'report': 'report',
 };
 
 const types: Record<TriggerPostType, string> = {
