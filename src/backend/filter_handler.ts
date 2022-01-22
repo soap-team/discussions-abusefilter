@@ -81,7 +81,7 @@ export class FilterHandler {
       this.matchAction(event.action, trigger.action);
   }
 
-  async checkAndPerformActions(_: unknown, event: MessengerEvent): Promise<void> {
+  checkAndPerformActions = async (_: unknown, event: MessengerEvent): Promise<void> => {
     if (!this.wikis.has(event.wiki)) {
       return;
     }
@@ -108,12 +108,12 @@ export class FilterHandler {
         }
       }
     }
-  }
+  };
 
   /** Starts listening to events and checking filters. */
-  start(): void {
+  start = (): void => {
     this.listener.on('find:raw', this.checkAndPerformActions);
-  }
+  };
 
   checkFilter(filter: Filter, context: Context, event: MessengerEvent): boolean {
     if (!context) return false;

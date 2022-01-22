@@ -4,6 +4,7 @@ import type { Context, Controllers } from './context_handler';
 import type { DocNode } from 'fandom-api/dist/controllers/discussion_types/json_model';
 import { DiscussionUtil } from './discussions_util';
 import type { EmbeddedPost } from 'fandom-api/dist/controllers/discussion_types/post';
+import { fetch } from 'cross-fetch';
 
 const getStringJsonModel = (message: string): DocNode => ({
   'type': 'doc',
@@ -100,7 +101,7 @@ export class ActionHandler {
   }
 
   async logDiscord(event: MessengerEvent, webhook: string, content: string): Promise<unknown> {
-    const DISCORD_REGEX = /discord(app)?.com\/api\/webhooks\/([^\/]+)\/([^\/]+)$/i;
+    const DISCORD_REGEX = /discord(app)?.com\/api\/webhooks\/([^/]+)\/([^/]+)$/i;
     const res = webhook.match(DISCORD_REGEX);
 
     let modifiedContent = content;

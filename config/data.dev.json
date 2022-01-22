@@ -1,0 +1,26 @@
+{
+  "info": {
+    "1": {
+      "id": "1", 
+      "title": "Test filter",
+      "description": "Test",
+      "wikis": ["noreply.fandom.com"],
+      "editedBy": "Noreplyz"
+    }
+  },
+  "filters": {
+    "1": {
+      "id": "1",
+      "triggers": [
+        { "wiki": "noreply.fandom.com", "action": "create-modify", "platform": "discussion", "postType": "thread" }
+      ],
+      "filter": "return true;",
+      "actions": [
+        {
+          "type": "reply",
+          "message": "text"
+        }
+      ]
+    }
+  }
+}
