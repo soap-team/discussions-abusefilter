@@ -23,4 +23,4 @@ export type MessengerPlatform =
   | 'report';
 
 export type MessengerPostType = 'thread' | 'reply' | 'report';
-export type MessengerAction = 'created' | 'modified' | 'moved' | 'deleted';
+export type MessengerAction = 'created' | 'modified' | 'moved' | 'deleted' | 'un-deleted';

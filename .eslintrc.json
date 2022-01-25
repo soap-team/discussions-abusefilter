@@ -22,7 +22,6 @@
         "indent": ["error", 2, { "SwitchCase": 1 }],
         "no-console": "warn",
         "no-multi-spaces": ["error"],
-        "no-invalid-this": "error",
         "block-spacing": ["error", "never"],
         "brace-style": "error",
         "comma-dangle": ["error", "always-multiline"],

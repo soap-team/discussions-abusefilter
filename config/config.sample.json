@@ -1,5 +1,8 @@
 {
-	"isDev": false,
+	"flags": {
+		"isDev": false,
+		"useSocialActivity": false
+	},
 	"accessToken": "abc",
 	"ports": {
 		"discussion": 11100

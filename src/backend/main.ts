@@ -4,13 +4,14 @@ import { FilterHandler } from './filter_handler';
 import * as config from '../../config/config.json';
 import * as prodData from '../../config/data.json';
 import * as devData from '../../config/data.dev.json';
+import { MockFeed } from '../mock_feed/mock_feed';
 import { createListener } from 'messenger';
 import type { Controllers } from './context_handler';
 import { ContextHandler } from './context_handler';
 import { ApiInterface, ArticleCommentsController, DiscussionPostController, DiscussionThreadController, MessageWallController } from 'fandom-api';
 import { ActionHandler } from './action_handler';
 
-const data = (config.isDev ? devData : prodData) as FilterData;
+const data = (config.flags.isDev ? devData : prodData) as FilterData;
 
 const startListener = (port: number) => {
   const listener = createListener(port);
@@ -46,3 +47,8 @@ const handler = new FilterHandler(
 );
 
 handler.start();
+
+if (config.flags.useSocialActivity) {
+  const wikis = Array.from(new Set(Object.values(data.info).flatMap(m => m.wikis)));
+  new MockFeed(wikis, api, config.ports.discussion).start();
+}
