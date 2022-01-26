@@ -82,31 +82,36 @@ export class FilterHandler {
   }
 
   checkAndPerformActions = async (_: unknown, event: MessengerEvent): Promise<void> => {
-    if (!this.wikis.has(event.wiki)) {
-      return;
-    }
+    try {
+      if (!this.wikis.has(event.wiki)) {
+        return;
+      }
 
-    // Set the context on the first trigger
-    let context: Context | null = null;
+      // Set the context on the first trigger
+      let context: Context | null = null;
 
-    // Go through each filter
-    for (const filter of Object.values(this.data.filters)) {
-      if (filter.triggers.some(trigger => this.matchTrigger(event, trigger))) {
-        // Retrieve context if not retrieved before
-        if (!context) {
-          context = await this.contextHandler.getContext(event);
-        }
+      // Go through each filter
+      for (const filter of Object.values(this.data.filters)) {
+        if (filter.triggers.some(trigger => this.matchTrigger(event, trigger))) {
+          // Retrieve context if not retrieved before
+          if (!context) {
+            context = await this.contextHandler.getContext(event);
+          }
 
-        // Check if the filter matches
-        const res = this.checkFilter(filter, context, event);
+          // Check if the filter matches
+          const res = this.checkJSFilter(filter, context, event);
 
-        // Perform actions
-        if (res) {
-          filter.actions.forEach((action) => {
-            this.actionHandler.performAction(action, context, event);
-          });
+          // Perform actions
+          if (res) {
+            filter.actions.forEach((action) => {
+              this.actionHandler.performAction(action, context, event);
+            });
+          }
         }
       }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
     }
   };
 
@@ -115,7 +120,7 @@ export class FilterHandler {
     this.listener.on('find:raw', this.checkAndPerformActions);
   };
 
-  checkFilter(filter: Filter, context: Context, event: MessengerEvent): boolean {
+  checkJSFilter(filter: Filter, context: Context, event: MessengerEvent): boolean {
     if (!context) return false;
     const { user, post } = context;
     if (!user || !post || !post.jsonModel) return false;
