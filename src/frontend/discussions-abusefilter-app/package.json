@@ -1,6 +1,6 @@
 {
   "name": "discussions-abusefilter-app",
-  "homepage": "https://http://soap-team.github.io/discussions-abusefilter/",
+  "homepage": "https://soap-team.github.io/discussions-abusefilter/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

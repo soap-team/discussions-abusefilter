@@ -20,6 +20,7 @@ import AuthContext from './contexts/AuthContext';
 import './App.css';
 import Register from 'pages/Register';
 import { ColorModeProvider } from 'contexts/ColorModeContext';
+import { Paths } from 'Paths';
 
 export default function App() {
   const { token } = React.useContext(AuthContext);
@@ -31,10 +32,11 @@ export default function App() {
         <NavBar />
         <Box component={Container} sx={{ my: 5 }}>
           <Routes>
-            <Route path="/" element={token === '' ? <Landing /> : <Filters />} />
-            <Route path="/:filterId" element={token === '' ? <Navigate replace to='/discussions-abusefilter/' /> : <FormProvider><Filter /></FormProvider>} />
-            <Route path="/login" element={token === '' ? <Login /> : <Navigate replace to='/discussions-abusefilter/' /> } />
-            <Route path="/register" element={token === '' ? <Register /> : <Navigate replace to='/discussions-abusefilter/' /> } />
+            <Route path="/" element={<Navigate replace to={Paths.landing} />} />
+            <Route path={Paths.landing} element={token === '' ? <Landing /> : <Filters />} />
+            <Route path={Paths.filter} element={token === '' ? <Navigate replace to={Paths.landing} /> : <FormProvider><Filter /></FormProvider>} />
+            <Route path={Paths.login} element={token === '' ? <Login /> : <Navigate replace to={Paths.landing} /> } />
+            <Route path={Paths.register} element={token === '' ? <Register /> : <Navigate replace to={Paths.landing} /> } />
           </Routes>
         </Box>
       </Router>

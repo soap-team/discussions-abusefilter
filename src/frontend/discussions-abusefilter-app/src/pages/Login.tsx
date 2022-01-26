@@ -3,6 +3,7 @@ import { Typography, TextField, Button, Stack, SvgIcon, Divider, Link, Paper, Bo
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 import { ReactComponent as DiscordLogo } from '../assets/icon_clyde_white_RGB.svg';
+import { Paths } from 'Paths';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -25,11 +26,11 @@ export default function Login() {
   const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     modifyToken('token');
-    navigate('/');
+    navigate(Paths.landing);
   };
 
   const handleSignup = () => {
-    navigate('/register');
+    navigate(Paths.register);
   };
 
   const handleDiscordLogin = () => {

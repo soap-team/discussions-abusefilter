@@ -20,6 +20,7 @@ import { useTheme } from '@mui/material/styles';
 import AuthContext from '../contexts/AuthContext';
 import logo from '../assets/fandom-heart.svg';
 import ColorModeContext from 'contexts/ColorModeContext';
+import { Paths } from 'Paths';
 
 export default function NavBar() {
   const { token, modifyToken } = React.useContext(AuthContext);
@@ -30,7 +31,7 @@ export default function NavBar() {
 
   const handleLogout = () => {
     modifyToken('');
-    navigate('/');
+    navigate(Paths.landing);
   };
 
   return (

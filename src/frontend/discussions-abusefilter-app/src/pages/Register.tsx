@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Typography, TextField, Button, Stack, Link, Paper, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
+import { Paths } from 'Paths';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -24,11 +25,11 @@ export default function Register() {
   const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     modifyToken('token');
-    navigate('/');
+    navigate(Paths.landing);
   };
 
   const handleLogin = () => {
-    navigate('/login');
+    navigate(Paths.login);
   };
 
   return (

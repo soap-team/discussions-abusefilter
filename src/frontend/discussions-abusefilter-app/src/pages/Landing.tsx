@@ -8,13 +8,14 @@ import {
 import { useNavigate } from 'react-router-dom';
 import banner from '../assets/banner.png';
 import { fandomPurple } from 'themes/Theme';
+import { Paths } from 'Paths';
 
 export default function Landing() {
   const navigate = useNavigate();
   const theme = useTheme();
 
   const handleOnClick = () => {
-    navigate('/login');
+    navigate(Paths.login);
   };
 
   return (
