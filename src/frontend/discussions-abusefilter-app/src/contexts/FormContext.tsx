@@ -15,18 +15,9 @@ interface FormContext {
 const defaultValues: FormContext = {
   filter: '',
   modifyFilter: () => {},
-  triggers: [{
-    action: 'create',
-    platform: 'article-comment',
-    postType: 'thread',
-    wiki: '',
-  }],
+  triggers: [],
   modifyTriggers: () => {},
-  actions: [{
-    type: 'log',
-    webhook: '',
-    content: '',
-  }],
+  actions: [],
   modifyActions: () => {},
 };
 
