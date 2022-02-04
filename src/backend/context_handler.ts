@@ -31,9 +31,6 @@ export type UserContext = {
   groupmemberships: { group: string, expiry: string }[],
   implicitgroups: string[],
   emailable: string,
-} | {
-  name: string,
-  missing: string,
 };
 
 export class ContextHandler {

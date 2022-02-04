@@ -7,6 +7,7 @@ import type { Context, ContextHandler } from './context_handler';
 import { DiscussionUtil } from './discussions_util';
 import type { ContentNode } from 'fandom-api/dist/controllers/discussion_types/json_model';
 import type { ActionHandler } from './action_handler';
+import { RuleHandler } from './rule_handler';
 
 export type FilterData = {
   info: Record<string, FilterMetadata>,
@@ -98,8 +99,12 @@ export class FilterHandler {
             context = await this.contextHandler.getContext(event);
           }
 
-          // Check if the filter matches
-          const res = this.checkJSFilter(filter, context, event);
+          // Check if the filter matches UI rules
+          let res = new RuleHandler(filter, context).checkUIFilter();
+          if (!res) {
+            // Check if the filter matches JS rules
+            res = this.checkJSFilter(filter, context, event);
+          }
 
           // Perform actions
           if (res) {

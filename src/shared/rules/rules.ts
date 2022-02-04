@@ -1,5 +1,5 @@
-import type { Attribute, BooleanAttribute, DateAttribute, NumberAttribute, SelectAttribute, StringArrayAttribute, StringAttribute } from './attributes';
-import type { BooleanOperator, DateOperator, NumberOperator, Operator, SelectOperator, StringArrayOperator, StringOperator } from './operators';
+import type { BooleanAttribute, DateAttribute, NumberAttribute, SelectAttribute, StringArrayAttribute, StringAttribute } from './attributes';
+import type { BooleanOperator, DateOperator, NumberOperator, SelectOperator, StringArrayOperator, StringOperator } from './operators';
 
 export type Rules = {
   ruleGroups: RuleGroup[],
