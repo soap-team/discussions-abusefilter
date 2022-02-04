@@ -125,6 +125,7 @@ export class RuleHandler {
             //   break;
             // DateAttribute
             case 'creationDate':
+              match ||= this.parseDateRule(rule, post.creationDate.epochSecond);
               break;
             case 'userRegistrationDate':
               break;
