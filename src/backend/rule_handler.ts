@@ -63,8 +63,10 @@ export class RuleHandler {
               }
               break;
             case 'mentions':
+              throw new Error('not implemented');
               break;
             case 'imageHashes':
+              throw new Error('not implemented');
               break;
             // SelectAttribute
             // case 'type':
@@ -74,17 +76,20 @@ export class RuleHandler {
               match &&= this.parseDateRule(rule, post.creationDate.epochSecond);
               break;
             case 'userRegistrationDate':
-              // if (user !== undefined) {
-              //   match &&= this.parseDateRule(rule, user.registration);
-              // }
+              if (user !== undefined && user.registration !== null) {
+                match &&= this.parseDateRule(rule, new Date(user.registration).getTime() / 1000);
+              }
               break;
             // NumberAttribute
             case 'position':
+              throw new Error('not implemented');
               break;
             // BooleanAttribute
             case 'hasImages':
+              throw new Error('not implemented');
               break;
             case 'hasMentions':
+              throw new Error('not implemented');
               break;
           }
         });
@@ -117,8 +122,10 @@ export class RuleHandler {
               }
               break;
             case 'mentions':
+              throw new Error('not implemented');
               break;
             case 'imageHashes':
+              throw new Error('not implemented');
               break;
             // SelectAttribute
             // case 'type':
@@ -128,14 +135,20 @@ export class RuleHandler {
               match ||= this.parseDateRule(rule, post.creationDate.epochSecond);
               break;
             case 'userRegistrationDate':
+              if (user !== undefined && user.registration !== null) {
+                match ||= this.parseDateRule(rule, new Date(user.registration).getTime() / 1000);
+              }
               break;
             // NumberAttribute
             case 'position':
+              throw new Error('not implemented');
               break;
             // BooleanAttribute
             case 'hasImages':
+              throw new Error('not implemented');
               break;
             case 'hasMentions':
+              throw new Error('not implemented');
               break;
           }
         });
