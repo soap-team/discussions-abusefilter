@@ -157,34 +157,35 @@ export class RuleHandler {
 
   parseStringRule(rule: StringRule, attributeValue: string | null): boolean {
     if (attributeValue === null) return false;
+    let match = false;
     switch (rule.operator) {
       case 'isOneOf':
-        console.log(rule.value, attributeValue, rule.value.includes(attributeValue));
         return rule.value.includes(attributeValue);
       case 'isNotOneOf':
         return !rule.value.includes(attributeValue);
       case 'startsWith':
         rule.value.forEach(e => {
           if (attributeValue.startsWith(e)) {
-            return true;
+            match = true;
+            return;
           }
         });
-        return false;
       case 'contains':
         rule.value.forEach(e => {
           if (attributeValue.includes(e)) {
-            return true;
+            match = true;
+            return;
           }
         });
-        return false;
       case 'matchesRegex':
         rule.value.forEach(e => {
           if (attributeValue.match(e)) {
-            return true;
+            match = true;
+            return;
           }
         });
-        return false;
     }
+    return match;
   }
 
   parseStringArrayRule(rule: StringArrayRule, attributeValue: string[]): boolean {
@@ -195,32 +196,33 @@ export class RuleHandler {
           attributeValue.forEach(e => {
             if (rule.value.includes(e)) {
               match &&= true;
+              return;
             }
           });
         }
-        return match;
       case 'containsAll':
         rule.value.forEach(e => {
           if (attributeValue.includes(e)) {
             match &&= true;
+            return;
           }
         });
-        return match;
       case 'containsAny':
         attributeValue.forEach(e => {
           if (rule.value.includes(e)) {
-            return true;
+            match = true;
+            return;
           }
         });
-        return false;
       case 'containsNone':
         attributeValue.forEach(e => {
           if (!rule.value.includes(e)) {
             match &&= true;
+            return;
           }
         });
-        return match;
     }
+    return match;
   }
 
   parseDateRule(rule: DateRule, attributeValue: number): boolean {

@@ -14,7 +14,7 @@
       "triggers": [
         { "wiki": "noreply.fandom.com", "action": "create-modify", "platform": "discussion", "postType": "thread" }
       ],
-      "filter": "{\"ruleGroups\":[{\"type\":\"and\",\"rules\":[{\"attr\":\"text\",\"operator\":\"isOneOf\",\"value\":[\"Hello\"]}],\"then\":true}],\"catchAll\":false}",
+      "filter": "{\"ruleGroups\":[{\"type\":\"and\",\"rules\":[{\"attr\":\"text\",\"operator\":\"matchesRegex\",\"value\":[\"^[a-zA-Z]\"]}],\"then\":true}],\"catchAll\":false}",
       "actions": [
         {
           "type": "reply",
