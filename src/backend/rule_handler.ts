@@ -20,11 +20,7 @@ export class RuleHandler {
     if (!user || !post || !post.jsonModel) return false;
 
     // Check if the filter is a UI filter
-    let res = this.filter.filter.startsWith('{') && this.filter.filter.endsWith('}');
-
-    if (res) {
-      res = this.parseUIFilter();
-    }
+    const res = this.filter.filter.startsWith('{') && this.filter.filter.endsWith('}');
 
     return res;
   }
@@ -34,6 +30,7 @@ export class RuleHandler {
     if (!this.context) return false;
     const { user, post } = this.context;
     const contentNode: ContentNode = JSON.parse(post.jsonModel!);
+    let res = filterObject.catchAll;
     filterObject.ruleGroups.forEach(ruleGroup => {
       if (ruleGroup.type === 'and') {
         let match = true;
@@ -93,7 +90,7 @@ export class RuleHandler {
               break;
           }
         });
-        if (match) return match;
+        if (match) res = match;
       } else {
         let match = false;
         ruleGroup.rules.forEach(rule => {
@@ -152,16 +149,17 @@ export class RuleHandler {
               break;
           }
         });
-        if (match) return match;
+        if (match) res = match;
       }
     });
-    return filterObject.catchAll;
+    return res;
   }
 
   parseStringRule(rule: StringRule, attributeValue: string | null): boolean {
     if (attributeValue === null) return false;
     switch (rule.operator) {
       case 'isOneOf':
+        console.log(rule.value, attributeValue, rule.value.includes(attributeValue));
         return rule.value.includes(attributeValue);
       case 'isNotOneOf':
         return !rule.value.includes(attributeValue);

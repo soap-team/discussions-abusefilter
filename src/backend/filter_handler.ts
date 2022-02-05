@@ -99,9 +99,13 @@ export class FilterHandler {
             context = await this.contextHandler.getContext(event);
           }
 
+          const ruleHandler = new RuleHandler(filter, context);
+          let res = false;
+
           // Check if the filter matches UI rules
-          let res = new RuleHandler(filter, context).checkUIFilter();
-          if (!res) {
+          if (ruleHandler.checkUIFilter()) {
+            res = ruleHandler.parseUIFilter();
+          } else {
             // Check if the filter matches JS rules
             res = this.checkJSFilter(filter, context, event);
           }
