@@ -28,7 +28,7 @@ export default function Filter() {
   const [filterEnabled, setFilterEnabled] = React.useState(true);
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const { filter, triggers, modifyTriggers, actions, modifyActions } = React.useContext(FormContext);
+  const { filter, triggers, modifyTriggers, actions, modifyActions, rules } = React.useContext(FormContext);
   const [errors] = React.useState(0);
 
   const handleFilterEnabledChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +74,7 @@ export default function Filter() {
 
   const handleSave = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log(name, description, filter, triggers, actions);
+    console.log(name, description, filter, triggers, actions, rules);
     console.log(errors);
     if (errors === 0) {
       console.log('firebase updated');

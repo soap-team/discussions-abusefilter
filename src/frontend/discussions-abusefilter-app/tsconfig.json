@@ -21,11 +21,12 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "paths": {
-      "@shared/*": ["../../../shared/*"]
+      "@shared/*": ["./../../../shared/*"]
     }
   },
   "include": [
     "src",
-    "../../shared/actions.ts"
+    "./../../../shared/*",
+    "./../../../shared/rules/*"
   ]
 }

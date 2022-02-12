@@ -15,7 +15,7 @@ export type StringArrayAttribute =
   | 'imageHashes';
 
 export type SelectAttribute =
-  | { type: 'type', options: ['TEXT', 'POLL']};
+  | 'type';
 
 export type DateAttribute =
   | 'creationDate'
@@ -35,3 +35,9 @@ export type Attribute =
   | DateAttribute
   | NumberAttribute
   | BooleanAttribute;
+
+export const SelectAttributeOptions: Record<SelectAttribute, string[]> = {
+  type: ['TEXT', 'POLL'],
+};
+
+export type AttributeType = 'string' | 'stringArray' | 'select' | 'date' | 'number' | 'boolean';

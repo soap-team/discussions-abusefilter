@@ -1,4 +1,6 @@
 import React from 'react';
+import type {
+  SelectChangeEvent } from '@mui/material';
 import {
   Typography,
   Grid,
@@ -10,25 +12,28 @@ import {
   Stack,
   Tooltip,
 } from '@mui/material';
-import type {
-  SelectChangeEvent } from '@mui/material';
 import LoopIcon from '@mui/icons-material/Loop';
 import ClearIcon from '@mui/icons-material/Clear';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import FilterRuleInputRow from './FilterRuleInputRow';
+import FilterRuleInputRow, { getAttributeType } from './FilterRuleInputRow';
+import FormContext from 'contexts/FormContext';
+import type { Attribute } from '@shared/rules/attributes';
+import type { Rule, StringArrayRule, StringRule } from '@shared/rules/rules';
 
-export default function FilterRule({ index }: { index: number }) {
+export const FilterRule = React.memo(({ index }: { index: number }) => {
   const [ruleOperator, setRuleOperator] = React.useState('OR');
-  const [conditions, setConditions] = React.useState(['']);
   const [then, setThen] = React.useState('perform actions');
+  const { rules, modifyRules } = React.useContext(FormContext);
 
   const handleRuleOperatorChange = () => {
-    setRuleOperator((ruleOperator) => ruleOperator === 'OR' ? 'AND' : 'OR');
+    setRuleOperator((ruleOperator) => ruleOperator === 'or' ? 'or' : 'and');
+    rules.ruleGroups[index].type = ruleOperator === 'or' ? 'or' : 'and';
+    modifyRules({ ...rules });
   };
 
   const handleNewCondition = () => {
-    const newConditions = [...conditions, ''];
-    setConditions(newConditions);
+    rules.ruleGroups[index].rules.push({ attr: 'text', operator: 'isOneOf', value: [] });
+    modifyRules({ ...rules });
   };
 
   const handleDeleteRule = () => {
@@ -37,6 +42,35 @@ export default function FilterRule({ index }: { index: number }) {
 
   const handleThenChange = (event: SelectChangeEvent) => {
     setThen(event.target.value);
+    rules.ruleGroups[index].then = then === 'perform actions' ? true : false;
+    modifyRules({ ...rules });
+  };
+
+  const setAttr = (i: number, attr: Attribute) => {
+    const currentAttrType = getAttributeType(rules.ruleGroups[index].rules[i].attr);
+    switch (getAttributeType(attr)) {
+    case currentAttrType:
+      break;
+    case 'string':
+      rules.ruleGroups[index].rules[i] = { attr, operator: 'isOneOf', value: [] } as StringRule;
+      break;
+    case 'stringArray':
+      rules.ruleGroups[index].rules[i] = { attr, operator: 'containsAny', value: [] } as StringArrayRule;
+      break;
+    default:
+      throw new Error(`Unsupported setAttr for attribute '${attr}'`);
+    }
+    modifyRules({ ...rules });
+  };
+
+  const setOperator = <T extends Rule>(i: number, operator: T['operator']) => {
+    rules.ruleGroups[index].rules[i].operator = operator;
+    modifyRules({ ...rules });
+  };
+
+  const setValue = <T extends Rule>(i: number, value: T['value']) => {
+    rules.ruleGroups[index].rules[i].value = value;
+    modifyRules({ ...rules });
   };
 
   return (
@@ -54,25 +88,28 @@ export default function FilterRule({ index }: { index: number }) {
         </Tooltip>
       </Stack>
       <Grid container spacing={2} sx={{ pr: 2 }}>
-        <Grid container item spacing={1} alignItems="center">
-          <Grid item xs={1}>
-            <Typography component="p" variant="subtitle2" sx={{ textAlign: 'center' }}>IF</Typography>
-          </Grid>
-          <FilterRuleInputRow />
-          <Grid item xs="auto">
-            <Tooltip title="Add Condition">
-              <IconButton size="small" onClick={handleNewCondition}>
-                <AddCircleIcon />
-              </IconButton>
-            </Tooltip>
-          </Grid>
-        </Grid>
-        {conditions.map((condition, i) =>
+        {rules.ruleGroups[index].rules.map((rule, i) =>
           <Grid container item spacing={1} alignItems="center" key={i}>
             <Grid item xs={1}>
-              <Typography component="p" variant="subtitle2" sx={{ textAlign: 'center' }}>{ruleOperator}</Typography>
+              <Typography component="p" variant="subtitle2" sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
+                {i === 0 ? 'IF' : rules.ruleGroups[index].type}
+              </Typography>
             </Grid>
-            <FilterRuleInputRow />
+            <FilterRuleInputRow
+              rule={rule}
+              setAttr={(v) => setAttr(i, v)}
+              setOperator={(v) => setOperator(i, v)}
+              setValue={(v) => setValue(i, v)}
+            />
+            {i === rules.ruleGroups[index].rules.length - 1 && (
+              <Grid item xs="auto">
+                <Tooltip title="Add Condition">
+                  <IconButton size="small" onClick={handleNewCondition}>
+                    <AddCircleIcon />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
+            )}
           </Grid>,
         )}
         <Grid container item spacing={1} alignItems="center">
@@ -82,14 +119,14 @@ export default function FilterRule({ index }: { index: number }) {
           <Grid item xs>
             <FormControl>
               <Select
-                value={then}
+                value={rules.catchAll ? 'perform actions' : 'don\'t perform actions'}
                 color="primary"
                 size="small"
                 autoWidth
                 onChange={handleThenChange}
               >
-                <MenuItem value={'perform actions'}>perform actions</MenuItem>
-                <MenuItem value={'don\'t perform actions'}>don't perform actions</MenuItem>
+                <MenuItem value="perform actions">perform actions</MenuItem>
+                <MenuItem value="don't perform actions">don't perform actions</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -97,4 +134,6 @@ export default function FilterRule({ index }: { index: number }) {
       </Grid>
     </Paper>
   );
-}
+});
+
+export default FilterRule;

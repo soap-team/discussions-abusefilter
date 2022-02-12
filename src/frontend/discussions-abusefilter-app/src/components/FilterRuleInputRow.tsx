@@ -7,89 +7,111 @@ import {
   ListSubheader,
   TextField,
   IconButton,
-  InputAdornment,
   Tooltip,
+  Autocomplete,
 } from '@mui/material';
-import type {
-  SelectChangeEvent } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
-import ClearIcon from '@mui/icons-material/Clear';
+import type { Rule } from '@shared/rules/rules';
+import type { Attribute, AttributeType } from '@shared/rules/attributes';
+import type { DateOperator, StringOperator, StringArrayOperator } from '@shared/rules/operators';
 
-const postAttributes: Record<string, string> = {
-  'creation-date': 'post creation date',
-  'text': 'post text',
-  'links': 'post links',
-  'title': 'post title',
-  'forum': 'post forum name',
-  'type': 'post type',
+const postAttributes: Partial<Record<Attribute, string>> = {
+  creationDate: 'post creation date',
+  text: 'post text',
+  links: 'post links',
+  title: 'post title',
+  forumName: 'post forum name',
+  type: 'post type',
 };
 
-const userAttributes: Record<string, string> = {
-  'groups': 'user groups',
-  'registration-date': 'user registration date',
-  'name': 'user name',
+const userAttributes: Partial<Record<Attribute, string>> = {
+  userGroups: 'user groups',
+  userRegistrationDate: 'user registration date',
+  userName: 'user name',
 };
 
-const dateOperators: Record<string, string> = {
-  'before': 'is before',
-  'after': 'is after',
-  'within': 'is within the last',
-  'not-within': 'is not within the last',
+const dateOperators: Record<DateOperator, string> = {
+  isBefore: 'is before',
+  isAfter: 'is after',
+  isWithin: 'is within the last',
+  isNotWithin: 'is not within the last',
 };
 
-const stringOperators: Record<string, string> = {
-  'one': 'is one of',
-  'not-one': 'is not one of',
-  'starts': 'starts with',
-  'contains': 'contains',
-  'matches': 'matches regex',
+const stringOperators: Record<StringOperator, string> = {
+  isOneOf: 'is one of',
+  isNotOneOf: 'is not one of',
+  startsWith: 'starts with',
+  contains: 'contains',
+  matchesRegex: 'matches regex',
 };
 
-const stringArrayOperators: Record<string, string> = {
-  'exact': 'exactly matches',
-  'contains-all': 'contains all of',
-  'contains-any': 'contains any of',
-  'contains-none': 'contains none of',
+const stringArrayOperators: Record<StringArrayOperator, string> = {
+  exactlyMatches: 'exactly matches',
+  containsAll: 'contains all of',
+  containsAny: 'contains any of',
+  containsNone: 'contains none of',
 };
 
-export default function FilterCodeEditor() {
-  const [attribute, setAttribute] = React.useState('creation-date');
-  const [operator, setOperator] = React.useState('before');
-  const [value, setValue] = React.useState('');
+export const getAttributeType = (attrName: Attribute): AttributeType => {
+  switch (attrName) {
+  case 'text':
+  case 'title':
+  case 'forumName':
+  case 'userName':
+    return 'string';
+  case 'links':
+  case 'userGroups':
+  case 'mentions':
+  case 'imageHashes':
+    return 'stringArray';
+  case 'type':
+    return 'select';
+  case 'creationDate':
+  case 'userRegistrationDate':
+    return 'date';
+  case 'position':
+    return 'number';
+  case 'hasImages':
+  case 'hasMentions':
+    return 'boolean';
+  default:
+    throw new Error('Unknown attribute');
+  }
+};
 
-  const [dataType, setDataType] = React.useState('date');
+const getOperators = (attr: Attribute) => {
+  switch (getAttributeType(attr)) {
+  case 'date':
+    return dateOperators;
+  case 'string':
+    return stringOperators;
+  case 'stringArray':
+    return stringArrayOperators;
+  default:
+    throw new Error('Attribute does not have known operators');
+  }
+};
 
-  const handleAttributeChange = (event: SelectChangeEvent) => {
-    setAttribute(event.target.value);
-    if (['creation-date', 'registration-date'].includes(event.target.value)) {
-      setDataType('date');
-      setOperator('before');
-    } else if (['links', 'groups'].includes(event.target.value)) {
-      setDataType('stringArray');
-      setOperator('exact');
-    } else {
-      setDataType('string');
-      setOperator('one');
-    }
-  };
-
-  const handleOperatorChange = (event: SelectChangeEvent) => {
-    setOperator(event.target.value);
-  };
-
-  const handleValueChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-    setValue(event.target.value);
-  };
-
+const FilterRuleInputRow = React.memo(<T extends Rule>({
+  rule,
+  setAttr,
+  setOperator,
+  setValue,
+}: {
+  rule: T,
+  setAttr(attr: Attribute): void,
+  setOperator(operator: T['operator']): void,
+  setValue(value: T['value']): void,
+  }) => {
   return (
     <>
       <Grid item xs="auto">
-        <FormControl>
-          <Select
-            value={attribute}
+        <FormControl size="small">
+          <Select<Attribute>
+            value={rule.attr}
             color="primary"
             size="small"
-            onChange={handleAttributeChange}
+            onChange={(e) => setAttr(e.target.value as Attribute)}
             autoWidth
           >
             <ListSubheader>Post</ListSubheader>
@@ -101,31 +123,29 @@ export default function FilterCodeEditor() {
       </Grid>
       <Grid item xs="auto">
         <FormControl>
-          <Select
-            value={operator}
+          <Select<T['operator']>
+            value={rule.operator}
             color="primary"
             size="small"
-            onChange={handleOperatorChange}
+            onChange={(e) => setOperator(e.target.value as T['operator'])}
           >
-            {dataType === 'string' && Object.entries(stringOperators).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
-            {dataType === 'date' && Object.entries(dateOperators).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
-            {dataType === 'stringArray' && Object.entries(stringArrayOperators).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
+            {Object.entries(getOperators(rule.attr)).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
           </Select>
         </FormControl>
       </Grid>
       <Grid item xs>
-        <TextField
-          defaultValue={value}
-          onBlur={handleValueChange}
-          size="small"
-          InputProps={{
-            endAdornment:
-                <InputAdornment position="end">
-                  <IconButton aria-label="Clear" size="small">
-                    <ClearIcon />
-                  </IconButton>
-                </InputAdornment>,
-          }} fullWidth/>
+        {(getAttributeType(rule.attr) === 'string' || getAttributeType(rule.attr) === 'stringArray') && (
+          <Autocomplete<T['value'], true, false, true>
+            multiple
+            freeSolo
+            size="small"
+            options={[]}
+            onChange={(e, values) => setValue(values as string[])}
+            renderInput={(params) => (
+              <TextField {...params} placeholder="values" />
+            )}
+          />
+        )}
       </Grid>
       <Grid item xs="auto">
         <Tooltip title="Remove Condition">
@@ -136,5 +156,6 @@ export default function FilterCodeEditor() {
       </Grid>
     </>
   );
-}
+});
 
+export default FilterRuleInputRow;

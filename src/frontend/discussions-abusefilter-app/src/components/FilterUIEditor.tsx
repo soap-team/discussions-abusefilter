@@ -13,15 +13,13 @@ import AddIcon from '@mui/icons-material/Add';
 import FormContext from '../contexts/FormContext';
 import FilterRule from './FilterRule';
 
-export default function FilterCodeEditor() {
-  const { filter, modifyFilter } = React.useContext(FormContext);
-  const [rules, setRules] = React.useState<string[]>([]);
+const FilterCodeEditor = React.memo(() => {
   const [elseRule, setElseRule] = React.useState('no-actions');
+  const { rules, modifyRules } = React.useContext(FormContext);
 
   const handleNewRule = () => {
-    console.log(filter, modifyFilter);
-    const newRules = [...rules, ''];
-    setRules(newRules);
+    rules.ruleGroups.push({ rules: [{ attr: 'text', operator: 'isOneOf', value: [] }], then: false, type: 'and' });
+    modifyRules({ ...rules });
   };
 
   const handleElseRuleChange = (event: SelectChangeEvent) => {
@@ -30,10 +28,10 @@ export default function FilterCodeEditor() {
 
   return (
     <>
-      {rules.map((rule, i) => <FilterRule key={i} index={i} />)}
+      {rules.ruleGroups.map((rule, i) => <FilterRule key={i} index={i} />)}
 
       <Stack direction="row" spacing={2}>
-        <Button variant="outlined" color="primary" onClick={handleNewRule} startIcon={<AddIcon/>} size="small">
+        <Button variant="outlined" color="primary" onClick={handleNewRule} startIcon={<AddIcon />} size="small">
           Add a rule
         </Button>
       </Stack>
@@ -56,4 +54,6 @@ export default function FilterCodeEditor() {
       </Grid>
     </>
   );
-}
+});
+
+export default FilterCodeEditor;
