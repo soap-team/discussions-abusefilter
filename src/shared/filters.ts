@@ -37,5 +37,5 @@ export type Trigger = {
   // The type of post to trigger on
   postType: TriggerPostType,
   // Domain in the form wiki.fandom.com
-  wiki: string,
+  wikis: string[],
 };

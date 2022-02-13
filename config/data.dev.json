@@ -12,7 +12,7 @@
     "1": {
       "id": "1",
       "triggers": [
-        { "wiki": "noreply.fandom.com", "action": "create-modify", "platform": "discussion", "postType": "thread" }
+        { "wikis": ["noreply.fandom.com"], "action": "create-modify", "platform": "discussion", "postType": "thread" }
       ],
       "filter": "{\"ruleGroups\":[{\"type\":\"and\",\"rules\":[{\"attr\":\"text\",\"operator\":\"matchesRegex\",\"value\":[\"^[a-zA-Z]\"]}],\"then\":true}],\"catchAll\":false}",
       "actions": [

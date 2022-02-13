@@ -9,8 +9,8 @@ import {
   FormControl,
   IconButton,
   Typography,
+  Autocomplete,
 } from '@mui/material';
-// import ClearIcon from '@mui/icons-material/Clear';
 import RemoveIcon from '@mui/icons-material/Remove';
 import FormContext from '../contexts/FormContext';
 import type { TriggerAction, TriggerPlatform, TriggerPostType } from '@shared/filters';
@@ -42,7 +42,7 @@ export default function Trigger({ index }: { index: number }) {
   const [action, setAction] = React.useState('create' as TriggerAction);
   const [platform, setPlatform] = React.useState('article-comment' as TriggerPlatform);
   const [type, setType] = React.useState('thread' as TriggerPostType);
-  const [wiki, setWiki] = React.useState('');
+  const [wikis, setWikis] = React.useState(['']);
 
   const handleActionChange = (event: SelectChangeEvent) => {
     setAction(event.target.value as TriggerAction);
@@ -60,10 +60,6 @@ export default function Trigger({ index }: { index: number }) {
     setType(event.target.value as TriggerPostType);
   };
 
-  const handleWikiChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-    setWiki(event.target.value);
-  };
-
   const handleDelete = () => {
     const newTriggers = [...triggers];
     newTriggers.splice(index, 1);
@@ -76,17 +72,17 @@ export default function Trigger({ index }: { index: number }) {
       action: action,
       platform: platform,
       postType: type,
-      wiki: wiki,
+      wikis: wikis,
     };
     modifyTriggers(newTriggers);
-  }, [action, platform, type, wiki]);
+  }, [action, platform, type, wikis]);
 
   return (
     <Grid container spacing={1} sx={{ alignItems: 'center' }}>
-      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+      <Grid item>
         <Typography variant="body2">A user</Typography>
       </Grid>
-      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+      <Grid item>
         <FormControl>
           <Select
             value={action}
@@ -98,10 +94,10 @@ export default function Trigger({ index }: { index: number }) {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+      <Grid item>
         {platform !== 'any' && <Typography variant="body2">a/an</Typography>}
       </Grid>
-      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+      <Grid item>
         <FormControl>
           <Select
             value={platform}
@@ -114,7 +110,7 @@ export default function Trigger({ index }: { index: number }) {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+      <Grid item>
         <FormControl>
           <Select
             value={type}
@@ -127,13 +123,22 @@ export default function Trigger({ index }: { index: number }) {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
-        <Typography variant="body2">on the wiki</Typography>
+      <Grid item>
+        <Typography variant="body2">on the wiki(s)</Typography>
       </Grid>
       <Grid item lg md={11} sm={11} xs={7}>
-        <TextField size="small" color="primary" defaultValue={wiki} onBlur={handleWikiChange} fullWidth />
+        <Autocomplete
+          multiple
+          freeSolo
+          size="small"
+          options={[]}
+          onChange={(e, values) => setWikis(values)}
+          renderInput={(params) => (
+            <TextField {...params} placeholder="wiki(s)" />
+          )}
+        />
       </Grid>
-      <Grid item lg="auto" md="auto" sm="auto" xs="auto">
+      <Grid item>
         <IconButton size="small" aria-label="delete" onClick={handleDelete}>
           <RemoveIcon />
         </IconButton>

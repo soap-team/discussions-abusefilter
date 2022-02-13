@@ -54,7 +54,7 @@ export default function Filter() {
         action: 'create',
         platform: 'article-comment',
         postType: 'thread',
-        wiki: '',
+        wikis: [],
       },
     ];
     modifyTriggers(newTriggers);

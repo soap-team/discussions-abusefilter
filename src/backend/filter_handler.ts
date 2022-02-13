@@ -68,7 +68,7 @@ export class FilterHandler {
    */
   matchTrigger(event: MessengerEvent, trigger: Trigger): boolean {
     // Wikis must match
-    if (event.wiki !== trigger.wiki) {
+    if (!trigger.wikis.includes(event.wiki)) {
       return false;
     }
 
