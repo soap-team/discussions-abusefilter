@@ -3,14 +3,15 @@ import {
   Grid,
   Select,
   MenuItem,
-  FormControl,
   ListSubheader,
   TextField,
   IconButton,
   Tooltip,
   Autocomplete,
+  Typography,
 } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import type { Rule } from '@shared/rules/rules';
 import type { Attribute, AttributeType } from '@shared/rules/attributes';
 import type { DateOperator, StringOperator, StringArrayOperator } from '@shared/rules/operators';
@@ -94,46 +95,57 @@ const getOperators = (attr: Attribute) => {
 
 const FilterRuleInputRow = React.memo(<T extends Rule>({
   rule,
+  rulePrefix,
+  isLast,
   setAttr,
   setOperator,
   setValue,
+  addRule,
+  removeRule,
 }: {
   rule: T,
+  rulePrefix: 'if' | 'and' | 'or',
+  isLast?: boolean,
   setAttr(attr: Attribute): void,
   setOperator(operator: T['operator']): void,
   setValue(value: T['value']): void,
-  }) => {
+  addRule?(): void,
+  removeRule(): void,
+}) => {
   return (
-    <>
-      <Grid item xs="auto">
-        <FormControl size="small">
-          <Select<Attribute>
-            value={rule.attr}
-            color="primary"
-            size="small"
-            onChange={(e) => setAttr(e.target.value as Attribute)}
-            autoWidth
-          >
-            <ListSubheader>Post</ListSubheader>
-            {Object.entries(postAttributes).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
-            <ListSubheader>User</ListSubheader>
-            {Object.entries(userAttributes).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
-          </Select>
-        </FormControl>
+    <Grid container item spacing={1} alignItems="center">
+      <Grid item xs={2} md={1}>
+        <Typography component="p" variant="subtitle2" sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
+          {rulePrefix}
+        </Typography>
       </Grid>
-      <Grid item xs="auto">
-        <FormControl>
-          <Select<T['operator']>
-            value={rule.operator}
-            color="primary"
-            size="small"
-            onChange={(e) => setOperator(e.target.value as T['operator'])}
-          >
-            {Object.entries(getOperators(rule.attr)).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
-          </Select>
-        </FormControl>
+      <Grid item xs={4} md={2}>
+        <Select<Attribute>
+          fullWidth
+          value={rule.attr}
+          color="primary"
+          size="small"
+          onChange={(e) => setAttr(e.target.value as Attribute)}
+          autoWidth
+        >
+          <ListSubheader>Post</ListSubheader>
+          {Object.entries(postAttributes).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
+          <ListSubheader>User</ListSubheader>
+          {Object.entries(userAttributes).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
+        </Select>
       </Grid>
-      <Grid item xs>
+      <Grid item xs={4} md={2}>
+        <Select<T['operator']>
+          fullWidth
+          value={rule.operator}
+          color="primary"
+          size="small"
+          onChange={(e) => setOperator(e.target.value as T['operator'])}
+        >
+          {Object.entries(getOperators(rule.attr)).map(([key, value]) => <MenuItem key={key} value={key}>{value}</MenuItem>)}
+        </Select>
+      </Grid>
+      <Grid item xs={10} md={6}>
         {(getAttributeType(rule.attr) === 'string' || getAttributeType(rule.attr) === 'stringArray') && (
           <Autocomplete<T['value'], true, false, true>
             multiple
@@ -147,14 +159,21 @@ const FilterRuleInputRow = React.memo(<T extends Rule>({
           />
         )}
       </Grid>
-      <Grid item xs="auto">
-        <Tooltip title="Remove Condition">
-          <IconButton size="small">
+      <Grid item xs={2} md={1}>
+        <Tooltip title="Remove rule">
+          <IconButton size="small" onClick={removeRule}>
             <RemoveIcon />
           </IconButton>
         </Tooltip>
+        {isLast && (
+          <Tooltip title="Add rule">
+            <IconButton size="small" onClick={addRule}>
+              <AddCircleIcon />
+            </IconButton>
+          </Tooltip>
+        )}
       </Grid>
-    </>
+    </Grid>
   );
 });
 

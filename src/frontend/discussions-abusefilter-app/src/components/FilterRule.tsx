@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 import LoopIcon from '@mui/icons-material/Loop';
 import ClearIcon from '@mui/icons-material/Clear';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import FilterRuleInputRow, { getAttributeType } from './FilterRuleInputRow';
 import FormContext from 'contexts/FormContext';
 import type { Attribute } from '@shared/rules/attributes';
@@ -31,13 +30,19 @@ export const FilterRule = React.memo(({ index }: { index: number }) => {
     modifyRules({ ...rules });
   };
 
-  const handleNewCondition = () => {
+  const addRule = () => {
     rules.ruleGroups[index].rules.push({ attr: 'text', operator: 'isOneOf', value: [] });
     modifyRules({ ...rules });
   };
 
-  const handleDeleteRule = () => {
-    console.log('delete index', index);
+  const removeRule = (i: number) => {
+    rules.ruleGroups[index].rules.splice(i, 1);
+    modifyRules({ ...rules });
+  };
+
+  const removeRuleGroup = () => {
+    rules.ruleGroups.splice(index, 1);
+    modifyRules({ ...rules });
   };
 
   const handleThenChange = (event: SelectChangeEvent) => {
@@ -76,40 +81,30 @@ export const FilterRule = React.memo(({ index }: { index: number }) => {
   return (
     <Paper variant="outlined" sx={{ pl: 1, pb: 4 }}>
       <Stack direction="row" sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Tooltip title="Toggle Rule Operator">
+        <Tooltip title="Toggle rule operator">
           <IconButton onClick={handleRuleOperatorChange} size="small">
             <LoopIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Delete Rule">
-          <IconButton size="small" onClick={handleDeleteRule}>
+        <Tooltip title="Delete rule group">
+          <IconButton size="small" onClick={removeRuleGroup}>
             <ClearIcon />
           </IconButton>
         </Tooltip>
       </Stack>
       <Grid container spacing={2} sx={{ pr: 2 }}>
         {rules.ruleGroups[index].rules.map((rule, i) =>
-          <Grid container item spacing={1} alignItems="center" key={i}>
-            <Grid item xs={1}>
-              <Typography component="p" variant="subtitle2" sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
-                {i === 0 ? 'IF' : rules.ruleGroups[index].type}
-              </Typography>
-            </Grid>
+          <Grid container item spacing={1} key={i}>
             <FilterRuleInputRow
               rule={rule}
+              rulePrefix={i === 0 ? 'if' : rules.ruleGroups[index].type}
               setAttr={(v) => setAttr(i, v)}
               setOperator={(v) => setOperator(i, v)}
               setValue={(v) => setValue(i, v)}
+              removeRule={() => removeRule(i)}
+              isLast={i === rules.ruleGroups[index].rules.length - 1}
+              addRule={addRule}
             />
-            {i === rules.ruleGroups[index].rules.length - 1 && (
-              <Grid item xs="auto">
-                <Tooltip title="Add Condition">
-                  <IconButton size="small" onClick={handleNewCondition}>
-                    <AddCircleIcon />
-                  </IconButton>
-                </Tooltip>
-              </Grid>
-            )}
           </Grid>,
         )}
         <Grid container item spacing={1} alignItems="center">
