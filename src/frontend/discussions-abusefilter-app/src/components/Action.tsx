@@ -15,8 +15,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import FormContext from '../contexts/FormContext';
-// import type { Action } from '../../../../shared/actions';
+import ActionsContext from '../contexts/ActionsContext';
 import ActionLog from './ActionLog';
 import ActionReply from './ActionReply';
 import ActionMove from './ActionMove';
@@ -29,8 +28,8 @@ const types = [
   'Move to category',
 ];
 
-export default function Action({ index }: { index: number }) {
-  const { actions, modifyActions } = React.useContext(FormContext);
+const Action = React.memo(({ index }: { index: number }) => {
+  const { actions, modifyActions } = React.useContext(ActionsContext);
   const [action, setAction] = React.useState(types[0]);
 
   const handleActionChange = (event: SelectChangeEvent) => {
@@ -105,4 +104,6 @@ export default function Action({ index }: { index: number }) {
       </Stack>
     </Paper>
   );
-}
+});
+
+export default Action;

@@ -4,10 +4,10 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import FormContext from '../contexts/FormContext';
+import ActionsContext from '../contexts/ActionsContext';
 
-export default function ActionLog({ index }: { index: number }) {
-  const { actions, modifyActions } = React.useContext(FormContext);
+const ActionLog = React.memo(({ index }: { index: number }) => {
+  const { actions, modifyActions } = React.useContext(ActionsContext);
   const [text, setText] = React.useState('');
   const [webhook, setWebhook] = React.useState('');
 
@@ -63,4 +63,6 @@ export default function ActionLog({ index }: { index: number }) {
       </Grid>
     </>
   );
-}
+});
+
+export default ActionLog;

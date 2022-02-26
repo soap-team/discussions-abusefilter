@@ -4,10 +4,10 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import FormContext from '../contexts/FormContext';
+import ActionsContext from '../contexts/ActionsContext';
 
-export default function ActionReply({ index }: { index: number }) {
-  const { actions, modifyActions } = React.useContext(FormContext);
+const ActionReply = React.memo(({ index }: { index: number }) => {
+  const { actions, modifyActions } = React.useContext(ActionsContext);
   const [message, setMessage] = React.useState('');
 
   const handleMessageChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -39,4 +39,6 @@ export default function ActionReply({ index }: { index: number }) {
       </Grid>
     </Grid>
   );
-}
+});
+
+export default ActionReply;
