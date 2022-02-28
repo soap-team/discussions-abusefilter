@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/discussions-abusefilter/static/css/main.38683321.css",
-    "main.js": "/discussions-abusefilter/static/js/main.aa270d59.js",
+    "main.js": "/discussions-abusefilter/static/js/main.b56c17da.js",
     "static/js/787.6e882c4c.chunk.js": "/discussions-abusefilter/static/js/787.6e882c4c.chunk.js",
     "static/media/banner.png": "/discussions-abusefilter/static/media/banner.6db4e8a718e551c873b0.png",
     "static/media/fandom-heart.svg": "/discussions-abusefilter/static/media/fandom-heart.139e27936d75e067af17859e2adac303.svg",
     "static/media/icon_clyde_white_RGB.svg": "/discussions-abusefilter/static/media/icon_clyde_white_RGB.a420227021864513c33f564d51c99590.svg",
     "index.html": "/discussions-abusefilter/index.html",
     "main.38683321.css.map": "/discussions-abusefilter/static/css/main.38683321.css.map",
-    "main.aa270d59.js.map": "/discussions-abusefilter/static/js/main.aa270d59.js.map",
+    "main.b56c17da.js.map": "/discussions-abusefilter/static/js/main.b56c17da.js.map",
     "787.6e882c4c.chunk.js.map": "/discussions-abusefilter/static/js/787.6e882c4c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.38683321.css",
-    "static/js/main.aa270d59.js"
+    "static/js/main.b56c17da.js"
   ]
 }
