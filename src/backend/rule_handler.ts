@@ -38,17 +38,17 @@ export class RuleHandler {
           switch (rule.attr) {
             // StringAttribute
             case 'text':
-              match &&= this.parseStringRule(rule, DiscussionUtil.getTextContent(contentNode));
+              match &&= RuleHandler.parseStringRule(rule, DiscussionUtil.getTextContent(contentNode));
               break;
             case 'title':
-              match &&= this.parseStringRule(rule, post.title);
+              match &&= RuleHandler.parseStringRule(rule, post.title);
               break;
             case 'forumName':
-              match &&= this.parseStringRule(rule, (post as ForumThreadResponse).forumName);
+              match &&= RuleHandler.parseStringRule(rule, (post as ForumThreadResponse).forumName);
               break;
             case 'userName':
               if (user !== undefined) {
-                match &&= this.parseStringRule(rule, user.name);
+                match &&= RuleHandler.parseStringRule(rule, user.name);
               }
               break;
             // StringArrayAttribute
@@ -56,7 +56,7 @@ export class RuleHandler {
               break;
             case 'userGroups':
               if (user !== undefined) {
-                match &&= this.parseStringArrayRule(rule, user.groups);
+                match &&= RuleHandler.parseStringArrayRule(rule, user.groups);
               }
               break;
             case 'mentions':
@@ -70,11 +70,11 @@ export class RuleHandler {
             //   break;
             // DateAttribute
             case 'creationDate':
-              match &&= this.parseDateRule(rule, post.creationDate.epochSecond);
+              match &&= RuleHandler.parseDateRule(rule, post.creationDate.epochSecond);
               break;
             case 'userRegistrationDate':
               if (user !== undefined && user.registration !== null) {
-                match &&= this.parseDateRule(rule, new Date(user.registration).getTime() / 1000);
+                match &&= RuleHandler.parseDateRule(rule, new Date(user.registration).getTime() / 1000);
               }
               break;
             // NumberAttribute
@@ -97,17 +97,17 @@ export class RuleHandler {
           switch (rule.attr) {
             // StringAttribute
             case 'text':
-              match ||= this.parseStringRule(rule, DiscussionUtil.getTextContent(contentNode));
+              match ||= RuleHandler.parseStringRule(rule, DiscussionUtil.getTextContent(contentNode));
               break;
             case 'title':
-              match ||= this.parseStringRule(rule, post.title);
+              match ||= RuleHandler.parseStringRule(rule, post.title);
               break;
             case 'forumName':
-              match ||= this.parseStringRule(rule, (post as ForumThreadResponse).forumName);
+              match ||= RuleHandler.parseStringRule(rule, (post as ForumThreadResponse).forumName);
               break;
             case 'userName':
               if (user !== undefined) {
-                match ||= this.parseStringRule(rule, user.name);
+                match ||= RuleHandler.parseStringRule(rule, user.name);
               }
               break;
             // StringArrayAttribute
@@ -115,7 +115,7 @@ export class RuleHandler {
               break;
             case 'userGroups':
               if (user !== undefined) {
-                match ||= this.parseStringArrayRule(rule, user.groups);
+                match ||= RuleHandler.parseStringArrayRule(rule, user.groups);
               }
               break;
             case 'mentions':
@@ -129,11 +129,11 @@ export class RuleHandler {
             //   break;
             // DateAttribute
             case 'creationDate':
-              match ||= this.parseDateRule(rule, post.creationDate.epochSecond);
+              match ||= RuleHandler.parseDateRule(rule, post.creationDate.epochSecond);
               break;
             case 'userRegistrationDate':
               if (user !== undefined && user.registration !== null) {
-                match ||= this.parseDateRule(rule, new Date(user.registration).getTime() / 1000);
+                match ||= RuleHandler.parseDateRule(rule, new Date(user.registration).getTime() / 1000);
               }
               break;
             // NumberAttribute
@@ -155,7 +155,7 @@ export class RuleHandler {
     return res;
   }
 
-  parseStringRule(rule: StringRule, attributeValue: string | null): boolean {
+  static parseStringRule(rule: StringRule, attributeValue: string | null): boolean {
     if (attributeValue === null) return false;
     let match = false;
     switch (rule.operator) {
@@ -188,44 +188,24 @@ export class RuleHandler {
     return match;
   }
 
-  parseStringArrayRule(rule: StringArrayRule, attributeValue: string[]): boolean {
-    let match = true;
+  static parseStringArrayRule(rule: StringArrayRule, attributeValue: string[]): boolean {
     switch (rule.operator) {
       case 'exactlyMatches':
-        if (attributeValue.length === rule.value.length) {
-          attributeValue.forEach(e => {
-            if (rule.value.includes(e)) {
-              match &&= true;
-              return;
-            }
-          });
-        }
+        return (
+          attributeValue.length === rule.value.length &&
+          attributeValue.every(e => rule.value.includes(e))
+        );
       case 'containsAll':
-        rule.value.forEach(e => {
-          if (attributeValue.includes(e)) {
-            match &&= true;
-            return;
-          }
-        });
+        return rule.value.every(e => attributeValue.includes(e));
       case 'containsAny':
-        attributeValue.forEach(e => {
-          if (rule.value.includes(e)) {
-            match = true;
-            return;
-          }
-        });
+        return attributeValue.length > 0 &&
+          attributeValue.some(e => rule.value.includes(e));
       case 'containsNone':
-        attributeValue.forEach(e => {
-          if (!rule.value.includes(e)) {
-            match &&= true;
-            return;
-          }
-        });
+        return rule.value.every(e => !attributeValue.includes(e));
     }
-    return match;
   }
 
-  parseDateRule(rule: DateRule, attributeValue: number): boolean {
+  static parseDateRule(rule: DateRule, attributeValue: number): boolean {
     switch (rule.operator) {
       case 'isBefore':
         return attributeValue < rule.value;

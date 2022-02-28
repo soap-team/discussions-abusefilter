@@ -1,6 +1,5 @@
 import { DiscussionUtil } from '../discussions_util';
 import type { JsonModel } from 'fandom-api/dist/controllers/discussion_types/json_model';
-import { ApiInterface } from 'fandom-api';
 
 describe('DiscussionsUtil', () => {
   it('gets links from a JSON model - openGraph and marks', () => {
