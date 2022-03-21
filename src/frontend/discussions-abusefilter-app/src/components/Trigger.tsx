@@ -12,7 +12,7 @@ import {
   Autocomplete,
 } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
-import FormContext from '../contexts/FormContext';
+import TriggersContext from '../contexts/TriggersContext';
 import type { TriggerAction, TriggerPlatform, TriggerPostType } from '@shared/filters';
 
 const actions: Record<TriggerAction, string> = {
@@ -37,8 +37,8 @@ const types: Record<TriggerPostType, string> = {
   'any': 'post or reply',
 };
 
-export default function Trigger({ index }: { index: number }) {
-  const { triggers, modifyTriggers } = React.useContext(FormContext);
+const Trigger = React.memo(({ index }: { index: number }) => {
+  const { triggers, modifyTriggers } = React.useContext(TriggersContext);
   const [action, setAction] = React.useState('create' as TriggerAction);
   const [platform, setPlatform] = React.useState('article-comment' as TriggerPlatform);
   const [type, setType] = React.useState('thread' as TriggerPostType);
@@ -145,4 +145,6 @@ export default function Trigger({ index }: { index: number }) {
       </Grid>
     </Grid>
   );
-}
+});
+
+export default Trigger;

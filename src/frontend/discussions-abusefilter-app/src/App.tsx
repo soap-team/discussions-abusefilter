@@ -21,6 +21,9 @@ import './App.css';
 import Register from 'pages/Register';
 import { ColorModeProvider } from 'contexts/ColorModeContext';
 import { Paths } from 'Paths';
+import { ActionsProvider } from 'contexts/ActionsContext';
+import { RulesProvider } from 'contexts/RulesContext';
+import { TriggersProvider } from 'contexts/TriggersContext';
 
 export default function App() {
   const { token } = React.useContext(AuthContext);
@@ -34,7 +37,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Navigate replace to={Paths.landing} />} />
             <Route path={Paths.landing} element={token === '' ? <Landing /> : <Filters />} />
-            <Route path={Paths.filter} element={token === '' ? <Navigate replace to={Paths.landing} /> : <FormProvider><Filter /></FormProvider>} />
+            <Route path={Paths.filter} element={token === '' ? <Navigate replace to={Paths.landing} /> : <FormProvider><TriggersProvider><RulesProvider><ActionsProvider><Filter /></ActionsProvider></RulesProvider></TriggersProvider></FormProvider>} />
             <Route path={Paths.login} element={token === '' ? <Login /> : <Navigate replace to={Paths.landing} /> } />
             <Route path={Paths.register} element={token === '' ? <Register /> : <Navigate replace to={Paths.landing} /> } />
           </Routes>

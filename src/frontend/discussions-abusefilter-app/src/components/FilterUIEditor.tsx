@@ -10,12 +10,12 @@ import {
 import type {
   SelectChangeEvent } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import FormContext from '../contexts/FormContext';
+import RulesContext from '../contexts/RulesContext';
 import FilterRule from './FilterRule';
 
 const FilterCodeEditor = React.memo(() => {
   const [elseRule, setElseRule] = React.useState('no-actions');
-  const { rules, modifyRules } = React.useContext(FormContext);
+  const { rules, modifyRules } = React.useContext(RulesContext);
 
   const handleNewRule = () => {
     rules.ruleGroups.push({ rules: [{ attr: 'text', operator: 'isOneOf', value: [] }], then: false, type: 'and' });

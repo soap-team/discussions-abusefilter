@@ -15,14 +15,14 @@ import {
 import LoopIcon from '@mui/icons-material/Loop';
 import ClearIcon from '@mui/icons-material/Clear';
 import FilterRuleInputRow, { getAttributeType } from './FilterRuleInputRow';
-import FormContext from 'contexts/FormContext';
+import RulesContext from 'contexts/RulesContext';
 import type { Attribute } from '@shared/rules/attributes';
 import type { Rule, StringArrayRule, StringRule } from '@shared/rules/rules';
 
 export const FilterRule = React.memo(({ index }: { index: number }) => {
   const [ruleOperator, setRuleOperator] = React.useState('OR');
   const [then, setThen] = React.useState('perform actions');
-  const { rules, modifyRules } = React.useContext(FormContext);
+  const { rules, modifyRules } = React.useContext(RulesContext);
 
   const handleRuleOperatorChange = () => {
     setRuleOperator((ruleOperator) => ruleOperator === 'or' ? 'or' : 'and');

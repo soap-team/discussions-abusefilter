@@ -18,9 +18,10 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Trigger from '../components/Trigger';
 import FilterEditor from '../components/FilterEditor';
 import FormContext from '../contexts/FormContext';
-import type { Trigger as TriggerType } from '@shared/filters';
-import type { Action as FilterAction } from '../../../../shared/actions';
+import TriggersContext from '../contexts/TriggersContext';
 import Action from '../components/Action';
+import ActionsContext from '../contexts/ActionsContext';
+import RulesContext from '../contexts/RulesContext';
 
 export default function Filter() {
   const { filterId } = useParams();
@@ -28,7 +29,10 @@ export default function Filter() {
   const [filterEnabled, setFilterEnabled] = React.useState(true);
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const { filter, triggers, modifyTriggers, actions, modifyActions, rules } = React.useContext(FormContext);
+  const { filter } = React.useContext(FormContext);
+  const { triggers, modifyTriggers } = React.useContext(TriggersContext);
+  const { actions, modifyActions } = React.useContext(ActionsContext);
+  const { rules } = React.useContext(RulesContext);
   const [errors] = React.useState(0);
 
   const handleFilterEnabledChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,28 +52,24 @@ export default function Filter() {
   };
 
   const handleNewTrigger = () => {
-    const newTriggers: TriggerType[] = [
-      ...triggers,
+    modifyTriggers([...triggers,
       {
         action: 'create',
         platform: 'article-comment',
         postType: 'thread',
         wikis: [],
       },
-    ];
-    modifyTriggers(newTriggers);
+    ]);
   };
 
   const handleNewAction = () => {
-    const newActions: FilterAction[] = [
-      ...actions,
+    modifyActions([...actions,
       {
         type: 'log',
         webhook: '',
         content: '',
       },
-    ];
-    modifyActions(newActions);
+    ]);
   };
 
   const handleSave = (event: { preventDefault: () => void }) => {
@@ -162,7 +162,7 @@ export default function Filter() {
           </Typography>
           {triggers.length === 0 && (
             <Typography component="p" variant="body2">
-              (No triggers set - you must have at least one trigger)
+                (No triggers set - you must have at least one trigger)
             </Typography>
           )}
           {triggers.map((trigger, i) => (
@@ -225,9 +225,11 @@ export default function Filter() {
           <Button variant="outlined" component={Link} color="secondary" to="/" disableElevation>
             Cancel
           </Button>
+
           <Button variant="contained" color="primary" type="submit" disableElevation>
-            Save
+                  Save
           </Button>
+
         </Stack>
       </Stack>
     </>

@@ -4,10 +4,10 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import FormContext from '../contexts/FormContext';
+import ActionsContext from '../contexts/ActionsContext';
 
-export default function ActionMove({ index }: { index: number }) {
-  const { actions, modifyActions } = React.useContext(FormContext);
+const ActionMove = React.memo(({ index }: { index: number }) => {
+  const { actions, modifyActions } = React.useContext(ActionsContext);
   const [category, setCategory] = React.useState('');
 
   const handleCategoryChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -42,4 +42,6 @@ export default function ActionMove({ index }: { index: number }) {
       </Grid>
     </Grid>
   );
-}
+});
+
+export default ActionMove;
