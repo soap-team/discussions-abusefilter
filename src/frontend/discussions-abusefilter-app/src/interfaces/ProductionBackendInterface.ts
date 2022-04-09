@@ -1,0 +1,62 @@
+import type { Filter } from '@shared/filters';
+import type { BackendInterface } from './BackendInterface';
+
+const baseApiUrl = '';
+
+export class ProductionBackendInterface implements BackendInterface {
+  userToken: string;
+
+  constructor({ userToken } : {
+    userToken: string
+  }) {
+    this.userToken = userToken;
+  }
+
+  getFilters<T = any>(): Promise<T> {
+    return fetch(`${baseApiUrl}/filters`, {
+      method: 'GET',
+      headers: {
+        token: this.userToken,
+      },
+    })
+      .then(res => res.json())
+      .catch(e => console.log(e));
+  }
+
+  getFilter<T = any>(filterId: string): Promise<T> {
+    return fetch(`${baseApiUrl}/filter/${filterId}`, {
+      method: 'GET',
+      headers: {
+        token: this.userToken,
+      },
+    })
+      .then(res => res.json())
+      .catch(e => console.log(e));
+  }
+
+  createFilter(filter: Filter) {
+    return fetch(`${baseApiUrl}/filter/new`, {
+      method: 'POST',
+      headers: {
+        token: this.userToken,
+      },
+      body: JSON.stringify(filter),
+    })
+      .catch(e => console.log(e));
+  }
+
+  updateFilter(filterId: string, filter: Filter) {
+    return fetch(`${baseApiUrl}/filter/${filterId}`, {
+      method: 'POST',
+      headers: {
+        token: this.userToken,
+      },
+      body: JSON.stringify(filter),
+    })
+      .catch(e => console.log(e));
+  }
+
+  deleteFilter(filterId: string) {
+    return filterId;
+  }
+}
