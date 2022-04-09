@@ -4,10 +4,11 @@ import type { BackendInterface } from './BackendInterface';
 export class LocalBackendInterface implements BackendInterface {
   filters: Filter[];
   filtersMetadata: FilterMetadata[];
+  private static instance: LocalBackendInterface;
 
-  constructor(filters: Filter[], filtersMetadata: FilterMetadata[]) {
-    this.filters = filters;
-    this.filtersMetadata = filtersMetadata;
+  private constructor() {
+    this.filters = [];
+    this.filtersMetadata = [];
   }
 
   getFilters(): FilterMetadata[] {
@@ -34,5 +35,12 @@ export class LocalBackendInterface implements BackendInterface {
   deleteFilter(filterId: string) {
     this.filters.splice(this.filters.findIndex(filter => filter.id === filterId), 1);
     this.filtersMetadata.splice(this.filtersMetadata.findIndex(filter => filter.id === filterId), 1);
+  }
+
+  static getInstance(): LocalBackendInterface {
+    if (!LocalBackendInterface.instance) {
+      LocalBackendInterface.instance = new LocalBackendInterface();
+    }
+    return LocalBackendInterface.instance;
   }
 }
