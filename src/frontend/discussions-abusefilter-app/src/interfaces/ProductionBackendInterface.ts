@@ -61,4 +61,12 @@ export class ProductionBackendInterface implements BackendInterface {
   archiveFilter(filterId: string) {
     return filterId;
   }
+
+  enableFilter(filterId: string) {
+    console.log(filterId);
+  }
+
+  disableFilter(filterId: string) {
+    console.log(filterId);
+  }
 }

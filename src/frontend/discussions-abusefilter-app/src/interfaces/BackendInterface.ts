@@ -12,4 +12,6 @@ export interface BackendInterface {
   createFilter: (filter: Filter, filterMetadata: FilterMetadata) => void,
   updateFilter: (filter: Filter, filterMetadata: FilterMetadata) => void,
   archiveFilter: (filterId: string) => void,
+  enableFilter: (filterId: string) => void,
+  disableFilter: (filterId: string) => void,
 }

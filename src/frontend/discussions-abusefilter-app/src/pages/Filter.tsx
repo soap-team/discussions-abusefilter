@@ -79,6 +79,9 @@ export default function Filter() {
     console.log(errors);
     if (errors === 0) {
       if (filterId === 'new') {
+        let wikiList: string[] = [];
+        triggers.forEach(trigger => wikiList = wikiList.concat(trigger.wikis));
+        console.log(wikiList);
         LocalBackendInterface.getInstance().createFilter({
           id: '0',
           triggers: triggers,
@@ -88,7 +91,7 @@ export default function Filter() {
           id: '0',
           title: name,
           description: description,
-          wikis: [],
+          wikis: wikiList,
           editedBy: '',
         });
       }

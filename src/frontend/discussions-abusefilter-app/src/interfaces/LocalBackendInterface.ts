@@ -47,6 +47,14 @@ export class LocalBackendInterface implements BackendInterface {
     delete this.filtersMetadata[filterId];
   }
 
+  enableFilter(filterId: string) {
+    console.log(filterId);
+  }
+
+  disableFilter(filterId: string) {
+    console.log(filterId);
+  }
+
   static getInstance(): LocalBackendInterface {
     if (!LocalBackendInterface.instance) {
       LocalBackendInterface.instance = new LocalBackendInterface();
