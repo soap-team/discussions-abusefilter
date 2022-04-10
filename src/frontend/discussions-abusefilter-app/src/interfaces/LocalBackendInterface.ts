@@ -4,11 +4,13 @@ import type { BackendInterface, Error } from './BackendInterface';
 export class LocalBackendInterface implements BackendInterface {
   filters: Record<string, Filter>;
   filtersMetadata: Record<string, FilterMetadata>;
+  archivedFilters: string[];
   private static instance: LocalBackendInterface;
 
   private constructor() {
     this.filters = {};
     this.filtersMetadata = {};
+    this.archivedFilters = [];
   }
 
   getFilters(): Promise<FilterMetadata[]> {
@@ -17,7 +19,7 @@ export class LocalBackendInterface implements BackendInterface {
 
   getFilter(filterId: string): Promise<{ filterDetails: Filter, filterMetadata: FilterMetadata }> | Error {
     return new Promise<{ filterDetails: Filter, filterMetadata: FilterMetadata}>((resolve, reject) => {
-      if (Object.hasOwn(this.filters, 'filterId') && Object.hasOwn(this.filtersMetadata, 'filterId')) {
+      if (this.filters[filterId] != null && this.filtersMetadata[filterId] != null) {
         resolve({ filterDetails: this.filters[filterId], filterMetadata: this.filtersMetadata[filterId] });
       } else {
         reject({
@@ -40,6 +42,7 @@ export class LocalBackendInterface implements BackendInterface {
   }
 
   archiveFilter(filterId: string) {
+    this.archivedFilters.push(filterId);
     delete this.filters[filterId];
     delete this.filtersMetadata[filterId];
   }

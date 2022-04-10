@@ -22,6 +22,7 @@ import TriggersContext from '../contexts/TriggersContext';
 import Action from '../components/Action';
 import ActionsContext from '../contexts/ActionsContext';
 import RulesContext from '../contexts/RulesContext';
+import { LocalBackendInterface } from 'interfaces/LocalBackendInterface';
 
 export default function Filter() {
   const { filterId } = useParams();
@@ -77,6 +78,20 @@ export default function Filter() {
     console.log(name, description, filter, triggers, actions, rules);
     console.log(errors);
     if (errors === 0) {
+      if (filterId === 'new') {
+        LocalBackendInterface.getInstance().createFilter({
+          id: '0',
+          triggers: triggers,
+          filter: filter,
+          actions: actions,
+        }, {
+          id: '0',
+          title: name,
+          description: description,
+          wikis: [],
+          editedBy: '',
+        });
+      }
       console.log('firebase updated');
     } else {
       console.log('there are errors');
