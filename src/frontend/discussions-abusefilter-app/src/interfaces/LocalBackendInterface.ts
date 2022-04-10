@@ -48,11 +48,11 @@ export class LocalBackendInterface implements BackendInterface {
   }
 
   enableFilter(filterId: string) {
-    console.log(filterId);
+    this.filtersMetadata[filterId].enabled = true;
   }
 
   disableFilter(filterId: string) {
-    console.log(filterId);
+    this.filtersMetadata[filterId].enabled = false;
   }
 
   static getInstance(): LocalBackendInterface {

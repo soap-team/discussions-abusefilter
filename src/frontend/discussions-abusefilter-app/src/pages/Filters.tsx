@@ -36,6 +36,7 @@ import type { FilterMetadata } from '@shared/filters';
 const headings = [
   'ID',
   'Filter',
+  'Description',
   'Last edited by',
   'Wikis',
   'Hits',
@@ -85,9 +86,10 @@ export default function Filters() {
                     <Link component={RouterLink} to={row.id} underline="none">{row.title}</Link>
                   </Typography>
                 </TableCell>
+                <TableCell>{row.description}</TableCell>
                 <TableCell>{row.editedBy}</TableCell>
                 <TableCell>{row.wikis.length > 2 ? `${row.wikis[0]}, +${row.wikis.length - 1} more` : row.wikis.join(', ')}</TableCell>
-                <TableCell>{row.description}</TableCell>
+                <TableCell>{row.hits}</TableCell>
               </TableRow>
             ))}
           </TableBody>

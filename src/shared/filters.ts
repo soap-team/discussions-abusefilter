@@ -11,6 +11,10 @@ export type FilterMetadata = {
   wikis: string[],
   // Fandom username for the user who last edited the filter
   editedBy: string,
+  // Boolean flag that determines if the filter is enabled or disabled
+  enabled: boolean,
+  // Number of times the filter has been triggered
+  hits: number
 };
 
 export type Filter = {

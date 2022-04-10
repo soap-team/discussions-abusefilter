@@ -27,7 +27,7 @@ import { LocalBackendInterface } from 'interfaces/LocalBackendInterface';
 export default function Filter() {
   const { filterId } = useParams();
 
-  const [filterEnabled, setFilterEnabled] = React.useState(true);
+  const [filterEnabled, setFilterEnabled] = React.useState(false);
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
   const { filter } = React.useContext(FormContext);
@@ -76,24 +76,28 @@ export default function Filter() {
   const handleSave = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     console.log(name, description, filter, triggers, actions, rules);
-    console.log(errors);
+    // console.log(errors);
     if (errors === 0) {
       if (filterId === 'new') {
         let wikiList: string[] = [];
         triggers.forEach(trigger => wikiList = wikiList.concat(trigger.wikis));
-        console.log(wikiList);
+        const newId = Math.floor(Math.random() * 999).toString();
         LocalBackendInterface.getInstance().createFilter({
-          id: '0',
+          id: newId,
           triggers: triggers,
           filter: filter,
           actions: actions,
         }, {
-          id: '0',
+          id: newId,
           title: name,
           description: description,
           wikis: wikiList,
           editedBy: '',
+          enabled: filterEnabled,
+          hits: 0,
         });
+      } else {
+        //
       }
       console.log('firebase updated');
     } else {
@@ -114,7 +118,7 @@ export default function Filter() {
           <FormGroup sx={{ justifyContent: 'center' }}>
             <FormControlLabel
               control={<Switch checked={filterEnabled} onChange={handleFilterEnabledChange} />}
-              label="Filter enabled"
+              label={filterEnabled ? 'Filter enabled' : 'Filter disabled'}
             />
           </FormGroup>
           <Tooltip title="Duplicate filter">
@@ -245,7 +249,7 @@ export default function Filter() {
           </Button>
 
           <Button variant="contained" color="primary" type="submit" disableElevation>
-                  Save
+            Save
           </Button>
 
         </Stack>
