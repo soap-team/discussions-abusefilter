@@ -1,9 +1,15 @@
 import type { Filter, FilterMetadata } from '@shared/filters';
 
+export type Error = {
+  error: {
+    message: string
+  }
+};
+
 export interface BackendInterface {
-  getFilters: <T = any>() => Promise<T> | FilterMetadata[],
-  getFilter: <T = any>(filterId: string) => Promise<T> | { filterDetails: Filter | undefined, filterMetadata: FilterMetadata | undefined },
+  getFilters: () => Promise<FilterMetadata[]>,
+  getFilter: (filterId: string) => Promise<{ filterDetails: Filter, filterMetadata: FilterMetadata }> | Error,
   createFilter: (filter: Filter, filterMetadata: FilterMetadata) => void,
-  updateFilter: (filterId: string, filter: Filter, filterMetadata: FilterMetadata) => void,
-  deleteFilter: (filterId: string) => void,
+  updateFilter: (filter: Filter, filterMetadata: FilterMetadata) => void,
+  archiveFilter: (filterId: string) => void,
 }

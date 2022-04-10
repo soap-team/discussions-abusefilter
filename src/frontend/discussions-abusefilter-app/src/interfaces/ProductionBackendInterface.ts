@@ -1,4 +1,4 @@
-import type { Filter } from '@shared/filters';
+import type { Filter, FilterMetadata } from '@shared/filters';
 import type { BackendInterface } from './BackendInterface';
 
 const baseApiUrl = '';
@@ -34,7 +34,8 @@ export class ProductionBackendInterface implements BackendInterface {
       .catch(e => console.log(e));
   }
 
-  createFilter(filter: Filter) {
+  createFilter(filter: Filter, filterMetadata: FilterMetadata) {
+    console.log(filterMetadata);
     return fetch(`${baseApiUrl}/filter/new`, {
       method: 'POST',
       headers: {
@@ -45,8 +46,9 @@ export class ProductionBackendInterface implements BackendInterface {
       .catch(e => console.log(e));
   }
 
-  updateFilter(filterId: string, filter: Filter) {
-    return fetch(`${baseApiUrl}/filter/${filterId}`, {
+  updateFilter(filter: Filter, filterMetadata: FilterMetadata) {
+    console.log(filterMetadata);
+    return fetch(`${baseApiUrl}/filter/${filter.id}`, {
       method: 'POST',
       headers: {
         token: this.userToken,
@@ -56,7 +58,7 @@ export class ProductionBackendInterface implements BackendInterface {
       .catch(e => console.log(e));
   }
 
-  deleteFilter(filterId: string) {
+  archiveFilter(filterId: string) {
     return filterId;
   }
 }

@@ -1,40 +1,47 @@
 import type { Filter, FilterMetadata } from '@shared/filters';
-import type { BackendInterface } from './BackendInterface';
+import type { BackendInterface, Error } from './BackendInterface';
 
 export class LocalBackendInterface implements BackendInterface {
-  filters: Filter[];
-  filtersMetadata: FilterMetadata[];
+  filters: Record<string, Filter>;
+  filtersMetadata: Record<string, FilterMetadata>;
   private static instance: LocalBackendInterface;
 
   private constructor() {
-    this.filters = [];
-    this.filtersMetadata = [];
+    this.filters = {};
+    this.filtersMetadata = {};
   }
 
-  getFilters(): FilterMetadata[] {
-    return this.filtersMetadata;
+  getFilters(): Promise<FilterMetadata[]> {
+    return Promise.resolve(Object.values(this.filtersMetadata));
   }
 
-  getFilter(filterId: string): { filterDetails: Filter | undefined, filterMetadata: FilterMetadata | undefined } {
-    return {
-      filterDetails: this.filters.find(({ id }) => id === filterId),
-      filterMetadata: this.filtersMetadata.find(({ id }) => id === filterId),
-    };
+  getFilter(filterId: string): Promise<{ filterDetails: Filter, filterMetadata: FilterMetadata }> | Error {
+    return new Promise<{ filterDetails: Filter, filterMetadata: FilterMetadata}>((resolve, reject) => {
+      if (Object.hasOwn(this.filters, 'filterId') && Object.hasOwn(this.filtersMetadata, 'filterId')) {
+        resolve({ filterDetails: this.filters[filterId], filterMetadata: this.filtersMetadata[filterId] });
+      } else {
+        reject({
+          error: {
+            message: 'Filter ID does not exist',
+          },
+        });
+      }
+    });
   }
 
   createFilter(filter: Filter, filterMetadata: FilterMetadata) {
-    this.filters.push(filter);
-    this.filtersMetadata.push(filterMetadata);
+    this.filters[filter.id] = filter;
+    this.filtersMetadata[filterMetadata.id] = filterMetadata;
   }
 
-  updateFilter(filterId: string, filter: Filter, filterMetadata: FilterMetadata) {
-    this.filters[this.filters.findIndex(f=> f.id === filterId)] = filter;
-    this.filtersMetadata[this.filtersMetadata.findIndex(f => f.id === filterId)] = filterMetadata;
+  updateFilter(filter: Filter, filterMetadata: FilterMetadata) {
+    this.filters[filter.id] = filter;
+    this.filtersMetadata[filter.id] = filterMetadata;
   }
 
-  deleteFilter(filterId: string) {
-    this.filters.splice(this.filters.findIndex(filter => filter.id === filterId), 1);
-    this.filtersMetadata.splice(this.filtersMetadata.findIndex(filter => filter.id === filterId), 1);
+  archiveFilter(filterId: string) {
+    delete this.filters[filterId];
+    delete this.filtersMetadata[filterId];
   }
 
   static getInstance(): LocalBackendInterface {
