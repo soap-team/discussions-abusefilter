@@ -22,11 +22,16 @@ import TriggersContext from '../contexts/TriggersContext';
 import Action from '../components/Action';
 import ActionsContext from '../contexts/ActionsContext';
 import RulesContext from '../contexts/RulesContext';
+import { LocalBackendInterface } from 'interfaces/LocalBackendInterface';
+import { ProductionBackendInterface } from 'interfaces/ProductionBackendInterface';
+import { interfaceMode } from 'interfaces/BackendInterface';
+
+const filterController = interfaceMode === 'local' ? LocalBackendInterface.getInstance() : new ProductionBackendInterface('token');
 
 export default function Filter() {
   const { filterId } = useParams();
 
-  const [filterEnabled, setFilterEnabled] = React.useState(true);
+  const [filterEnabled, setFilterEnabled] = React.useState(false);
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
   const { filter } = React.useContext(FormContext);
@@ -75,8 +80,29 @@ export default function Filter() {
   const handleSave = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     console.log(name, description, filter, triggers, actions, rules);
-    console.log(errors);
+    // console.log(errors);
     if (errors === 0) {
+      if (filterId === 'new') {
+        let wikiList: string[] = [];
+        triggers.forEach(trigger => wikiList = wikiList.concat(trigger.wikis));
+        const newId = Math.floor(Math.random() * 999).toString();
+        filterController.createFilter({
+          id: newId,
+          triggers: triggers,
+          filter: filter,
+          actions: actions,
+        }, {
+          id: newId,
+          title: name,
+          description: description,
+          wikis: wikiList,
+          editedBy: '',
+          enabled: filterEnabled,
+          hits: 0,
+        });
+      } else {
+        //
+      }
       console.log('firebase updated');
     } else {
       console.log('there are errors');
@@ -96,7 +122,7 @@ export default function Filter() {
           <FormGroup sx={{ justifyContent: 'center' }}>
             <FormControlLabel
               control={<Switch checked={filterEnabled} onChange={handleFilterEnabledChange} />}
-              label="Filter enabled"
+              label={filterEnabled ? 'Filter enabled' : 'Filter disabled'}
             />
           </FormGroup>
           <Tooltip title="Duplicate filter">
@@ -227,7 +253,7 @@ export default function Filter() {
           </Button>
 
           <Button variant="contained" color="primary" type="submit" disableElevation>
-                  Save
+            Save
           </Button>
 
         </Stack>

@@ -25,6 +25,8 @@ import { ActionsProvider } from 'contexts/ActionsContext';
 import { RulesProvider } from 'contexts/RulesContext';
 import { TriggersProvider } from 'contexts/TriggersContext';
 
+// export const localMode = true;
+
 export default function App() {
   const { token } = React.useContext(AuthContext);
 
