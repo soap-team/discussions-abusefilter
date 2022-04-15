@@ -20,6 +20,8 @@ import { useTheme } from '@mui/material/styles';
 import { fandomPurple } from 'themes/Theme';
 // import { localMode } from 'App';
 import { LocalBackendInterface } from 'interfaces/LocalBackendInterface';
+import { ProductionBackendInterface } from 'interfaces/ProductionBackendInterface';
+import { interfaceMode } from 'interfaces/BackendInterface';
 import type { FilterMetadata } from '@shared/filters';
 
 // missing hits
@@ -42,6 +44,8 @@ const headings = [
   'Hits',
 ];
 
+const filtersController = interfaceMode === 'local' ? LocalBackendInterface.getInstance() : new ProductionBackendInterface('token');
+
 export default function Filters() {
   const [filterData, setFilterData] = React.useState([] as FilterMetadata[]);
   const theme = useTheme();
@@ -49,10 +53,10 @@ export default function Filters() {
   React.useEffect(() => {
     // eslint-disable-next-line no-constant-condition
     if (true) {
-      LocalBackendInterface.getInstance().getFilters()
+      filtersController.getFilters()
         .then(res => setFilterData(res));
     }
-    LocalBackendInterface.getInstance().getFilters().then(res=>console.log(res));
+    filtersController.getFilters().then(res=>console.log(res));
   }, []);
 
   return (

@@ -23,6 +23,10 @@ import Action from '../components/Action';
 import ActionsContext from '../contexts/ActionsContext';
 import RulesContext from '../contexts/RulesContext';
 import { LocalBackendInterface } from 'interfaces/LocalBackendInterface';
+import { ProductionBackendInterface } from 'interfaces/ProductionBackendInterface';
+import { interfaceMode } from 'interfaces/BackendInterface';
+
+const filterController = interfaceMode === 'local' ? LocalBackendInterface.getInstance() : new ProductionBackendInterface('token');
 
 export default function Filter() {
   const { filterId } = useParams();
@@ -82,7 +86,7 @@ export default function Filter() {
         let wikiList: string[] = [];
         triggers.forEach(trigger => wikiList = wikiList.concat(trigger.wikis));
         const newId = Math.floor(Math.random() * 999).toString();
-        LocalBackendInterface.getInstance().createFilter({
+        filterController.createFilter({
           id: newId,
           triggers: triggers,
           filter: filter,

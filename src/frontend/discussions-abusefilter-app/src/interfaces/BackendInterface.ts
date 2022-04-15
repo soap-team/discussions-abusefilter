@@ -6,6 +6,8 @@ export type Error = {
   }
 };
 
+export const interfaceMode = 'local';
+
 export interface BackendInterface {
   getFilters: () => Promise<FilterMetadata[]>,
   getFilter: (filterId: string) => Promise<{ filterDetails: Filter, filterMetadata: FilterMetadata }> | Error,

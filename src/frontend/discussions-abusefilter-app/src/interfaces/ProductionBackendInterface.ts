@@ -6,9 +6,7 @@ const baseApiUrl = '';
 export class ProductionBackendInterface implements BackendInterface {
   userToken: string;
 
-  constructor({ userToken } : {
-    userToken: string
-  }) {
+  constructor( userToken: string) {
     this.userToken = userToken;
   }
 
